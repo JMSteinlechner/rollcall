@@ -26,7 +26,11 @@ public class RollcallLogicImpl implements RollcallLogic {
         // Example usage of SakaiProxy.
         // Just logs the current site ID.
         String siteId = sakaiProxy.getCurrentSiteId();
-        log.debug("We are in site: {}", siteId);
+        if (siteId != null) {
+            log.debug("We are in site: {}", siteId);
+        } else {
+            log.warn("No site context is available at startup.");
+        }
     }
 
     /**
