@@ -1,3 +1,4 @@
 org/sakaiproject/rollcall/logic/RollcallLogic.class
+org/sakaiproject/rollcall/model/RollcallSite.class
 org/sakaiproject/rollcall/api/RollcallService.class
 org/sakaiproject/rollcall/logic/SakaiProxy.class

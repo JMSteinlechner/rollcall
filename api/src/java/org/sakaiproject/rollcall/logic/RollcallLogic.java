@@ -1,5 +1,7 @@
 package org.sakaiproject.rollcall.logic;
 
+
+import org.sakaiproject.rollcall.model.*;
 /**
  * Minimal interface for Rollcall logic services.
  */
@@ -12,5 +14,5 @@ public interface RollcallLogic {
     /**
      * Example method. Do something "rollcallish."
      */
-    void doSomething();
+    void doSomethingWithSite();
 }
