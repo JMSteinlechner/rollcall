@@ -1,3 +1,5 @@
-org/sakaiproject/rollcall/impl/RollcallServiceImpl.class
-org/sakaiproject/rollcall/logic/RollcallLogicImpl.class
+org/sakaiproject/rollcall/dao/impl/ThingMapper.class
 org/sakaiproject/rollcall/logic/SakaiProxyImpl.class
+org/sakaiproject/rollcall/dao/impl/ProjectDaoImpl.class
+org/sakaiproject/rollcall/dao/ProjectDao.class
+org/sakaiproject/rollcall/logic/ProjectLogicImpl.class

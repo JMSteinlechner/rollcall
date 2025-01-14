@@ -1,50 +1,60 @@
 package org.sakaiproject.rollcall.logic;
 
-import org.sakaiproject.user.api.User;
-
 /**
- * Minimal SakaiProxy interface matching the methods
- * in the corresponding SakaiProxyImpl.
+ * An interface to abstract all Sakai related API calls in a central method that can be injected into our app.
+ * 
+ * @author Steve Swinsburg (steve.swinsburg@anu.edu.au)
+ *
  */
 public interface SakaiProxy {
 
-    /**
-     * Get current site ID.
-     */
-    String getCurrentSiteId();
-
-    /**
-     * Get the current user object.
-     */
-    User getCurrentUser();
-
-    /**
-     * Get the current user’s Sakai ID (not EID).
-     */
-    String getCurrentUserId();
-
-    /**
-     * Get the current user’s display name.
-     */
-    String getCurrentUserDisplayName();
-
-    /**
-     * Check if the current user is a super user (admin).
-     */
-    boolean isSuperUser();
-
-    /**
-     * Post an event to Sakai.
-     */
-    void postEvent(String event, String reference, boolean modify);
-
-    /**
-     * Retrieve a boolean parameter from sakai.properties.
-     */
-    boolean getConfigParam(String param, boolean dflt);
-
-    /**
-     * Retrieve a string parameter from sakai.properties.
-     */
-    String getConfigParam(String param, String dflt);
+	/**
+	 * Get current siteid
+	 * @return
+	 */
+	public String getCurrentSiteId();
+	
+	/**
+	 * Get current user id
+	 * @return
+	 */
+	public String getCurrentUserId();
+	
+	/**
+	 * Get current user display name
+	 * @return
+	 */
+	public String getCurrentUserDisplayName();
+	
+	/**
+	 * Is the current user a superUser? (anyone in admin realm)
+	 * @return
+	 */
+	public boolean isSuperUser();
+	
+	/**
+	 * Post an event to Sakai
+	 * 
+	 * @param event			name of event
+	 * @param reference		reference
+	 * @param modify		true if something changed, false if just access
+	 * 
+	 */
+	public void postEvent(String event,String reference,boolean modify);
+		
+	/**
+	 * Get a configuration parameter as a boolean
+	 * 
+	 * @param	dflt the default value if the param is not set
+	 * @return
+	 */
+	public boolean getConfigParam(String param, boolean dflt);
+	
+	/**
+	 * Get a configuration parameter as a String
+	 * 
+	 * @param	dflt the default value if the param is not set
+	 * @return
+	 */
+	public String getConfigParam(String param, String dflt);
 }

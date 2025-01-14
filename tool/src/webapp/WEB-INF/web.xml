@@ -1,40 +1,58 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
-                             http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-         version="3.1">
+<?xml version="1.0" encoding="ISO-8859-1"?>
+	<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+		 version="2.4">
 
-    <display-name>Rollcall Tool</display-name>
+	<display-name>sakai.rollcall</display-name>
 
-    <!-- Servlet Configuration -->
-    <servlet>
-        <servlet-name>RollcallServlet</servlet-name>
-        <servlet-class>org.sakaiproject.rollcall.tool.RollcallServlet</servlet-class>
-    </servlet>
-
-    <!-- Servlet Mapping -->
+	<!--  This application's servlet class -->
+	<servlet>
+		<servlet-name>sakai.rollcall</servlet-name>
+	    <servlet-class>org.apache.wicket.protocol.http.WicketServlet</servlet-class>
+	    <init-param>
+	      	<param-name>applicationClassName</param-name>
+	      	<param-value>org.sakaiproject.rollcall.tool.MyApplication</param-value>
+	    </init-param>
+		<load-on-startup>1</load-on-startup>
+  	</servlet>
     <servlet-mapping>
-        <servlet-name>RollcallServlet</servlet-name>
-        <url-pattern>/sakai.rollcall/*</url-pattern>
+        <servlet-name>sakai.rollcall</servlet-name>
+        <url-pattern>/*</url-pattern>
     </servlet-mapping>
 
-    <!-- Welcome File -->
-    <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
-    </welcome-file-list>
+	<!-- Deploy mode -->
+	<context-param>
+            <param-name>configuration</param-name>
+            <param-value>development</param-value>
+            <!--  <param-value>deployment</param-value> -->
+	</context-param>
 
-    <!-- Context Parameters -->
-    <context-param>
-        <param-name>tool-id</param-name>
-        <param-value>sakai.rollcall</param-value>
-    </context-param>
 
-    <!-- Listeners -->
-    <listener>
-        <listener-class>org.sakaiproject.util.ToolListener</listener-class>
-    </listener>
-    <listener>
-        <listener-class>org.sakaiproject.util.SakaiContextLoaderListener</listener-class>
-    </listener>
+	<!-- Sakai Request Filter -->
+	<filter>
+		<filter-name>sakai.request</filter-name>
+		<filter-class>org.sakaiproject.util.RequestFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>sakai.request</filter-name>
+		<servlet-name>sakai.rollcall</servlet-name>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+	</filter-mapping>
+	
+	
+	<!-- Sakai Tool Listener -->
+	<listener>
+		<listener-class>org.sakaiproject.util.ToolListener</listener-class>
+	</listener>
+	
+	<!-- Sakai Spring Listener -->
+	<listener>
+		<listener-class>org.sakaiproject.util.SakaiContextLoaderListener</listener-class>
+	</listener>
+	
+	
+
 </web-app>

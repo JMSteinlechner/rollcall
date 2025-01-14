@@ -1,109 +1,65 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	
-	<modelVersion>4.0.0</modelVersion>
-	
-	<name>rollcall-for-sakai</name>
-	<groupId>org.sakaiproject.rollcall</groupId>
-	<artifactId>rollcall</artifactId>
-	
-	<packaging>pom</packaging>
-	
-	<parent>
-    	<groupId>org.sakaiproject</groupId>
-    	<artifactId>master</artifactId>
-    	<version>23-SNAPSHOT</version>
-		<relativePath>../master/pom.xml</relativePath>
-  	</parent>
+  <name>rollcall - Base</name>
 
-	<developers>
-		<developer>
-			<name>Jakob Steinlechner</name>
-			<email>jakob@steinlechners.at</email>
-			<organization>MCI</organization>
-			<timezone>+1</timezone>
-		</developer>
-	</developers>
+  <groupId>org.sakaiproject.rollcall</groupId>
+  <artifactId>rollcall</artifactId>
+  <packaging>pom</packaging>
+  <version>23-SNAPSHOT</version>
 
-	<licenses>
-		<license>
-			<name>Educational Community License, Version 2.0</name>
-			<url>http://www.opensource.org/licenses/ECL-2.0</url>
-		</license>
-	</licenses>
+  <parent>
+    <groupId>org.sakaiproject</groupId>
+    <artifactId>master</artifactId>
+    <version>23-SNAPSHOT</version>
+    <relativePath>../master/pom.xml</relativePath>
+  </parent>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
-	
-	<dependencyManagement>
-		<dependencies>
-		
-			<!-- project dependencies -->
-			<dependency>
-      			<groupId>org.sakaiproject.rollcall</groupId>
-      			<artifactId>rollcall-api</artifactId>
-      			<version>${project.version}</version>
-      			<scope>provided</scope>
-    		</dependency>
-    		<dependency>
-      			<groupId>org.sakaiproject.rollcall</groupId>
-      			<artifactId>rollcall-impl</artifactId>
-      			<version>${project.version}</version>
-      			<scope>runtime</scope>
-    		</dependency>
-			
-			<!-- third party dependencies -->
-			<!--<dependency>
-				<groupId>org.apache.wicket</groupId>
-				<artifactId>wicket</artifactId>
-				<version>9.19.0</version>
-				<type>pom</type>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.wicket</groupId>
-				<artifactId>wicket-spring</artifactId>
-				<version>9.19.0</version>
-				</dependency>
-			<dependency>
-				<groupId>org.apache.wicket</groupId>
-				<artifactId>wicket-extensions</artifactId>
-				<version>9.19.0</version>
-			</dependency>-->
-		</dependencies>
-	</dependencyManagement>
-	
-	
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <wicket.version>6.26.0</wicket.version>
+  </properties>
+  <dependencyManagement>
+    <dependencies>
+      <!-- project dependencies -->
+      <dependency>
+        <groupId>org.sakaiproject.rollcall</groupId>
+        <artifactId>rollcall-api</artifactId>
+        <version>23-SNAPSHOT</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.sakaiproject.rollcall</groupId>
+        <artifactId>rollcall-impl</artifactId>
+        <version>23-SNAPSHOT</version>
+        <scope>runtime</scope>
+      </dependency>
+      <!-- third party dependencies -->
+      <dependency>
+        <groupId>org.apache.wicket</groupId>
+        <artifactId>wicket</artifactId>
+        <version>${wicket.version}</version>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.wicket</groupId>
+        <artifactId>wicket-spring</artifactId>
+        <version>${wicket.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-configuration</groupId>
+        <artifactId>commons-configuration</artifactId>
+        <version>1.10</version>
+      </dependency>
+      <!-- sakai dependencies -->
+    </dependencies>
+  </dependencyManagement>
   <modules>
     <module>tool</module>
     <module>api</module>
     <module>impl</module>
+    <module>pack</module>
   </modules>
 
-  <!--<profiles>
-    <profile>
-      <id>snapshots</id>
-      <activation>
-        <activeByDefault>false</activeByDefault>
-        <property>
-          <name>snapshots</name>
-        </property>
-      </activation>
-      <repositories>
-        <repository>
-          <id>sonatype-nexus-snapshots</id>
-          <name>Sonatype Nexus Snapshots</name>
-          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-          <releases>
-            <enabled>false</enabled>
-          </releases>
-          <snapshots>
-            <enabled>true</enabled>
-          </snapshots>
-        </repository>
-      </repositories>
-    </profile>
-  </profiles>-->
 
 </project>
