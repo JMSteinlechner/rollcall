@@ -1,5 +1,6 @@
 package org.sakaiproject.rollcall.tool;
 
+import org.sakaiproject.component.cover.ComponentManager;
 import org.sakaiproject.rollcall.api.RollcallService;
 
 
@@ -12,12 +13,17 @@ public class RollcallServlet extends HttpServlet {
 
     private transient RollcallService rollcallService;
 
-    @Override
     public void init() throws ServletException {
-        // Typically you’d look up the service from the Sakai component manager
-        rollcallService = (RollcallService) org.sakaiproject.component.cover.ComponentManager
-                .get(RollcallService.class);
+        try {
+            rollcallService = (RollcallService) ComponentManager.get(RollcallService.class);
+            if (rollcallService == null) {
+                throw new ServletException("RollcallService not found in ComponentManager");
+            }
+        } catch (Exception e) {
+            throw new ServletException("Error initializing RollcallServlet", e);
+        }
     }
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
