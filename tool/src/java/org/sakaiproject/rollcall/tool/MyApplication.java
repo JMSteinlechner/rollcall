@@ -39,10 +39,7 @@ public class MyApplication extends WebApplication {
 		
 		//Remove the wicket specific tags from the generated markup
 		getMarkupSettings().setStripWicketTags(true);
-		
-		//Don't add any extra tags around a disabled link (default is <em></em>)
-		getMarkupSettings().setDefaultBeforeDisabledLink(null);
-		getMarkupSettings().setDefaultAfterDisabledLink(null);
+
 				
 		// On Wicket session timeout, redirect to main page
 		getApplicationSettings().setPageExpiredErrorPage(FirstPage.class);

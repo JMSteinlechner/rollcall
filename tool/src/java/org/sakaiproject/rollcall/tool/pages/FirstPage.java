@@ -5,6 +5,9 @@ import java.util.Date;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.model.Model; // For Model.of() in Wicket
+import java.util.Arrays; // For Arrays.asList()
+
 
 /**
  * An example page
@@ -29,7 +32,8 @@ public class FirstPage extends BasePage {
 		String date = new SimpleDateFormat(DATE_FORMAT).format(d);
 		String time = new SimpleDateFormat(TIME_FORMAT).format(d);
 
-		add(new Label("time", new StringResourceModel("the.time", null, new String[] {date, time})));
-		
+		add(new Label("time", new StringResourceModel("the.time", null, Model.ofList(Arrays.asList(date, time)))));
+
+
 	}
 }
