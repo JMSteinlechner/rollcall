@@ -8,10 +8,6 @@ import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
-
-
-
-
 import org.sakaiproject.rollcall.tool.pages.FirstPage;
 
 /**
