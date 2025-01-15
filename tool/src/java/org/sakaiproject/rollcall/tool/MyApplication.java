@@ -30,7 +30,10 @@ public class MyApplication extends WebApplication {
 	 */
 	@Override
 	protected void init() {
-		
+
+        // Disable the CSP header (we can handle this in root of application)
+        getCspSettings().blocking().disabled();
+
 		//Configure for Spring injection
         getComponentInstantiationListeners().add(new SpringComponentInjector(this));
 
