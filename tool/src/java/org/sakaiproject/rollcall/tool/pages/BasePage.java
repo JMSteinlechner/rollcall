@@ -158,7 +158,7 @@ public class BasePage extends WebPage implements IHeaderContributor {
 		
 		//Tool additions (at end so we can override if required)
 		//response.render(StringHeaderItem.forString("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"));
-		response.render(CssHeaderItem.forUrl("css/rollcall.css"));
+		//response.render(CssHeaderItem.forUrl("css/rollcall.css"));
 		response.render(StringHeaderItem.forString("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"));
 		//Tool additions (at end so we can override if isRequired)
 		//response.renderCSSReference("css/rollcall.css");
