@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.Model;
@@ -24,9 +25,11 @@ public class FirstPage extends BasePage {
 
 		// Zeit anzeigen
 		Date d = new Date();
-		String date = new SimpleDateFormat("dd-MMM-yyyy").format(d);
-		String time = new SimpleDateFormat("HH:mm:ss").format(d);
-		add(new Label("time", Model.of("Date: " + date + ", Time: " + time)));
+		String date = new SimpleDateFormat(DATE_FORMAT).format(d);
+		String time = new SimpleDateFormat(TIME_FORMAT).format(d);
+
+		add(new Label("time", new StringResourceModel("the.time", (Component) null).setParameters(date, time)));
+
 
 		// Rollcall-Liste
 		List<String> rollcalls = rollcallDao.getRollcalls();

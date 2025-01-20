@@ -1,14 +1,11 @@
 package org.sakaiproject.rollcall.tool;
 
-import org.apache.commons.logging.Log;
-import org.apache.wicket.Page;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.cycle.IRequestCycleListener;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
-
 import org.sakaiproject.rollcall.tool.pages.FirstPage;
 
 /**
@@ -20,8 +17,7 @@ import org.sakaiproject.rollcall.tool.pages.FirstPage;
  *
  * Cf. https://confluence.sakaiproject.org/pages/viewpage.action?pageId=83034325
  */
-public class MyApplication extends WebApplication {
-
+public class Rollcall extends WebApplication {
 	/**
 	 * Configure your app here
 	 */
@@ -79,7 +75,7 @@ public class MyApplication extends WebApplication {
 	/**
      * Constructor
      */
-	public MyApplication()
+	public Rollcall()
 	{
 	}
 
