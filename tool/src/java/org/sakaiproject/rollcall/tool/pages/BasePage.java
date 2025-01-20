@@ -87,7 +87,8 @@ public class BasePage extends WebPage implements IHeaderContributor {
 				setResponsePage(new ThirdPage());
 			}
 		};
-		thirdLink.add(new Label("thirdLinkLabel", new StringResourceModel("link.third", null, Model.of(new String[] {"3"}))).setRenderBodyOnly(true));
+		thirdLink.add(new Label("thirdLinkLabel", new StringResourceModel("link.third", (Component) null).setParameters("3")).setRenderBodyOnly(true));
+
 		thirdLink.add(new AttributeModifier("title", new ResourceModel("link.third.tooltip")));
 		add(thirdLink);
 
