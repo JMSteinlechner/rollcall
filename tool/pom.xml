@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	
+
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
     <artifactId>rollcall</artifactId>
     <groupId>org.sakaiproject.rollcall</groupId>
     <version>23-SNAPSHOT</version>
   </parent>
-	
+
 	<name>rollcall - Tool</name>
-	<groupId>org.sakaiproject.rollcall</groupId>
 	<artifactId>rollcall-tool</artifactId>
-	
+
 	<packaging>war</packaging>
-	
+
 	<dependencies>
-		
+
 		<!-- project dependencies -->
 		<dependency>
       		<groupId>org.sakaiproject.rollcall</groupId>
       		<artifactId>rollcall-api</artifactId>
     	</dependency>
-    	
+
     	<!-- third party dependencies -->
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
@@ -55,7 +54,7 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 		</dependency>
-		
+
 		<!-- Sakai dependencies -->
        	<dependency>
            	<groupId>org.sakaiproject.kernel</groupId>
@@ -69,9 +68,19 @@
 			<groupId>org.sakaiproject.kernel</groupId>
 			<artifactId>sakai-kernel-util</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>org.apache.ignite</groupId>
+            <artifactId>ignite-core</artifactId>
+            <scope>compile</scope>
+        </dependency>
+		<dependency>
+			<groupId>org.sakaiproject.rollcall</groupId>
+			<artifactId>rollcall-impl</artifactId>
+			<scope>compile</scope>
+		</dependency>
 
 	</dependencies>
-	
+
 
 	<build>
 		<resources>
@@ -94,5 +103,5 @@
             </resource>
 		</resources>
 	</build>
-	
+
 </project>

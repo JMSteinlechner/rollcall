@@ -2,8 +2,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
-
 	<!-- We need this file to satisfy Spring, but we don't need anything in it since we use Wicket's dependency injection -->
-       
+	<bean id="rollcallDao" class="org.sakaiproject.rollcall.impl.RollcallDao">
+		<property name="sqlService" ref="org.sakaiproject.db.api.SqlService" />
+	</bean>
+	<bean id="firstPage" class="org.sakaiproject.rollcall.tool.pages.FirstPage">
+		<property name="rollcallDao" ref="rollcallDao" />
+	</bean>
 </beans>
