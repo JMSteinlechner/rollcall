@@ -7,9 +7,7 @@ import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.feedback.FeedbackMessage;
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.OnLoadHeaderItem;
-import org.apache.wicket.markup.head.StringHeaderItem;
+import org.apache.wicket.markup.head.*;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -49,26 +47,26 @@ public class BasePage extends WebPage implements IHeaderContributor {
 	Link<Void> thirdLink;
 	
 	FeedbackPanel feedbackPanel;
-	
+
 	public BasePage() {
-		
+
 		log.debug("BasePage()");
-		
-		
+
+
     	//first link
 		firstLink = new Link<Void>("firstLink") {
 			private static final long serialVersionUID = 1L;
 			public void onClick() {
-				
+
 				setResponsePage(new FirstPage());
 			}
 		};
 		firstLink.add(new Label("firstLinkLabel",new ResourceModel("link.first")).setRenderBodyOnly(true));
-		firstLink.add(new AttributeModifier("title", true, new ResourceModel("link.first.tooltip")));
+		firstLink.add(new AttributeModifier("title", new ResourceModel("link.first.tooltip")));
 		add(firstLink);
-		
-		
-		
+
+
+
 		//second link
 		secondLink = new Link<Void>("secondLink") {
 			private static final long serialVersionUID = 1L;
@@ -77,11 +75,11 @@ public class BasePage extends WebPage implements IHeaderContributor {
 			}
 		};
 		secondLink.add(new Label("secondLinkLabel",new ResourceModel("link.second")).setRenderBodyOnly(true));
-		secondLink.add(new AttributeModifier("title", true, new ResourceModel("link.second.tooltip")));
+		secondLink.add(new AttributeModifier("title", new ResourceModel("link.second.tooltip")));
 		add(secondLink);
-		
-		
-		
+
+
+
 		//third link
 		thirdLink = new Link<Void>("thirdLink") {
 			private static final long serialVersionUID = 1L;
@@ -89,14 +87,15 @@ public class BasePage extends WebPage implements IHeaderContributor {
 				setResponsePage(new ThirdPage());
 			}
 		};
-		thirdLink.add(new Label("thirdLinkLabel",new StringResourceModel("link.third", null, new String[] {"3"})).setRenderBodyOnly(true));
-		thirdLink.add(new AttributeModifier("title", true, new ResourceModel("link.third.tooltip")));
+		thirdLink.add(new Label("thirdLinkLabel", new StringResourceModel("link.third", (Component) null).setParameters("3")).setRenderBodyOnly(true));
+
+		thirdLink.add(new AttributeModifier("title", new ResourceModel("link.third.tooltip")));
 		add(thirdLink);
-		
-		
+
+
 		// Add a FeedbackPanel for displaying our messages
         feedbackPanel = new FeedbackPanel("feedback"){
-        	
+
         	@Override
         	protected Component newMessageDisplayComponent(final String id, final FeedbackMessage message) {
         		final Component newMessageDisplayComponent = super.newMessageDisplayComponent(id, message);
@@ -107,15 +106,16 @@ public class BasePage extends WebPage implements IHeaderContributor {
         			message.getLevel() == FeedbackMessage.WARNING){
         			add(AttributeModifier.replace("class", "alertMessage"));
         		} else if(message.getLevel() == FeedbackMessage.INFO){
-        			add(AttributeModifier.replace("class", "success"));        			
-        		} 
+        			add(AttributeModifier.replace("class", "success"));
+        		}
 
         		return newMessageDisplayComponent;
         	}
         };
-        add(feedbackPanel); 
-		
+        add(feedbackPanel);
+
     }
+
 	
 	/**
 	 * Helper to clear the feedbackpanel display.
@@ -126,24 +126,6 @@ public class BasePage extends WebPage implements IHeaderContributor {
 			f.add(AttributeModifier.replace("class", ""));
 		}
 	}
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	/**
 	 * This block adds the required wrapper markup to style it like a Sakai tool. 
@@ -159,7 +141,10 @@ public class BasePage extends WebPage implements IHeaderContributor {
 		
 		
 		//Tool additions (at end so we can override if required)
+		//response.render(StringHeaderItem.forString("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"));
+		response.render(CssHeaderItem.forUrl("css/rollcall.css"));
 		response.render(StringHeaderItem.forString("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"));
+		//Tool additions (at end so we can override if isRequired)
 		//response.renderCSSReference("css/rollcall.css");
 		//response.renderJavascriptReference("js/my_tool_javascript.js");
 	}
