@@ -7,13 +7,16 @@ import java.util.List;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.repeater.RepeatingView;
-import org.apache.wicket.model.Model;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.sakaiproject.rollcall.impl.RollcallDao;
 
 public class FirstPage extends BasePage {
 	@SpringBean
 	private RollcallDao rollcallDao; // Wird automatisch injiziert
+
+	private static final String DATE_FORMAT="dd-MMM-yyyy";
+	private static final String TIME_FORMAT="HH:mm:ss";
 
 	public void setRollcallDao(RollcallDao rollcallDao) {
 		this.rollcallDao = rollcallDao;
