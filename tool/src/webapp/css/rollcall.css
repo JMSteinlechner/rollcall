@@ -1,3 +1,13 @@
 .icon-sakai-rollcall:before {
     content: "\f2f2";
 }
+
+.si-sakai-rollcall:before {
+    font-family: "FontAwesome"; /* Or another icon font library */
+    content: "\f0f9"; /* Unicode for the desired icon */
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1.2rem; /* Adjust the size as needed */
+    display: inline-block;
+    vertical-align: middle;
+}
