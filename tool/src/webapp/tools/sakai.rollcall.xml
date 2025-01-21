@@ -14,6 +14,8 @@
 
 		<!--  If the visibility/access of this tool should be dependent on a user permission, you can list that here -->
 		<!--  <configuration name="functions.require" value="some.permission"/> -->
+		<!-- Reference the CSS file -->
+		<property name="sakai.tool.stylesheet" value="/css/rollcall.css" />
 		
     </tool>
 </registration>
