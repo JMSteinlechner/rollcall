@@ -21,6 +21,16 @@
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
 
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
 	<!-- Deploy mode -->
 	<context-param>
             <param-name>configuration</param-name>
