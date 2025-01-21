@@ -34,4 +34,4 @@ And after a few more hours testing we find out the reason the icon is not showin
 
 Not sure if all the icont in the bootstrap 1.9 version work (tried with stopwatch.. didnt .. tried with clock worked).
 
-Might be necessary to close web browser to clear all caches from previous session even after rebuilding complete saka with docker.
+Might be necessary to close web browser to clear all caches from previous session even after rebuilding complete sakai with docker.
