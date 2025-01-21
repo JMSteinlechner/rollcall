@@ -21,3 +21,14 @@ More information for Morpheus skin generation can be found here: https://github.
 ### Setting our icon
 
 In the `_icons.scss` file we add the line `sakai-rollcall : bi-stopwatch` because our tools name is `sakai.rollcall` (defined in the `sakai.rollcall.xml`  <tool id="sakai.rollcall" ...)
+
+And after a few more hours testing we find out the reason the icon is not showing up in sakai even though we did everything identical to every other tool was having wicket in development mode instead of deployment mode. (`web.xml` file)
+
+```
+<!-- Deploy mode -->
+	<context-param>
+            <param-name>configuration</param-name>
+            <!--<param-value>development</param-value>-->
+            <param-value>deployment</param-value>
+	</context-param>
+```
