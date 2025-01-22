@@ -9,8 +9,9 @@
 		<ul class="navIntraTool actionToolbar" wicket:id="rollcallPageNav">
 			<li class="firstToolBarItem">
 				<span>
-					<a wicket:id="firstLink">
-						<span wicket:id="firstLinkLabel">[firstLinkLabel]</span>
+					<a wicket:id="firstLink" wicket:message="title:link.first.tooltip">
+						<wicket:message key="link.first" />
+						<span wicket:id="screenreaderlabel" class="sr-only"></span>
 					</a>
 				</span>
 			</li>
@@ -18,14 +19,15 @@
 				<span>
 					<a wicket:id="secondLink" wicket:message="title:link.second.tooltip">
 						<wicket:message key="link.second" />
-						<span wicket:id="secondLinkLabel" class="sr-only"></span>
+						<span wicket:id="screenreaderlabel" class="sr-only"></span>
 					</a>
 				</span>
 			</li>
 			<li>
 				<span>
-					<a wicket:id="thirdLink">
-					<span wicket:id="thirdLinkLabel">[thirdLinkLabel]</span>
+					<a wicket:id="thirdLink" wicket:message="title:link.third.tooltip">
+						<wicket:message key="link.third" />
+					<span wicket:id="screenreaderlabel" class="sr-only"></span>
 					</a>
 				</span>
 			</li>

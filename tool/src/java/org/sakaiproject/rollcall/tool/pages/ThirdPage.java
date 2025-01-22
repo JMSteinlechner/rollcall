@@ -30,7 +30,7 @@ public class ThirdPage extends BasePage {
 	ThingsDataProvider provider;
 	
 	public ThirdPage() {
-		disableLink(thirdLink);
+		disableLink(this.thirdLink);
 		
 		//get list of items from db, wrapped in a dataprovider
 		provider = new ThingsDataProvider();

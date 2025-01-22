@@ -34,7 +34,7 @@ import org.sakaiproject.rollcall.logic.SakaiProxy;
  * @author Steve Swinsburg (steve.swinsburg@gmail.com)
  *
  */
-public class BasePage extends WebPage implements IHeaderContributor {
+public class BasePage extends WebPage {
 
 	private static final Logger log = Logger.getLogger(BasePage.class);
 	
@@ -71,50 +71,27 @@ public class BasePage extends WebPage implements IHeaderContributor {
 		nav.setOutputMarkupId(true);
 		nav.setMarkupId("rollcall-navbar");
 
-    	//first link
-		firstLink = new Link<Void>("firstLink") {
+		//first link
+		this.firstLink = new BookmarkablePageLink<Void>("firstLink", FirstPage.class){
 			private static final long serialVersionUID = 1L;
-			public void onClick() {
-
-				setResponsePage(new FirstPage());
-			}
 		};
-		firstLink.add(new Label("firstLinkLabel",new ResourceModel("link.first")).setRenderBodyOnly(true));
-		firstLink.add(new AttributeModifier("title", new ResourceModel("link.first.tooltip")));
-		nav.add(firstLink);
-
-
+		this.firstLink.add(new Label("screenreaderlabel", getString("link.screenreader.tabnotselected")));
+		nav.add(this.firstLink);
 
 		//second link
 		this.secondLink = new BookmarkablePageLink<Void>("secondLink", SecondPage.class){
 			private static final long serialVersionUID = 1L;
 		};
-		this.secondLink.add(new Label("secondLinkLabel", getString("link.second")));
+		this.secondLink.add(new Label("screenreaderlabel", getString("link.screenreader.tabnotselected")));
 		nav.add(this.secondLink);
 
-		/*secondLink = new Link<Void>("secondLink") {
+		//second link
+		this.thirdLink = new BookmarkablePageLink<Void>("thirdLink", ThirdPage.class){
 			private static final long serialVersionUID = 1L;
-			public void onClick() {
-				setResponsePage(new SecondPage());
-			}
 		};
-		secondLink.add(new Label("secondLinkLabel",new ResourceModel("link.second")).setRenderBodyOnly(true));
-		secondLink.add(new AttributeModifier("title", new ResourceModel("link.second.tooltip")));
-		add(secondLink);*/
+		this.thirdLink.add(new Label("screenreaderlabel", getString("link.screenreader.tabnotselected")));
+		nav.add(this.thirdLink);
 
-
-
-		//third link
-		thirdLink = new Link<Void>("thirdLink") {
-			private static final long serialVersionUID = 1L;
-			public void onClick() {
-				setResponsePage(new ThirdPage());
-			}
-		};
-		thirdLink.add(new Label("thirdLinkLabel", new StringResourceModel("link.third", (Component) null).setParameters("3")).setRenderBodyOnly(true));
-
-		thirdLink.add(new AttributeModifier("title", new ResourceModel("link.third.tooltip")));
-		nav.add(thirdLink);
 
         add(nav);
 		// Add a FeedbackPanel for displaying our messages
@@ -179,6 +156,7 @@ public class BasePage extends WebPage implements IHeaderContributor {
 	 */
 	protected final void disableLink(final Link<Void> l) {
 		l.add(new AttributeAppender("class", new Model<String>("current"), " "));
+		l.replace(new Label("screenreaderlabel", getString("link.screenreader.tabselected")));
 		l.setEnabled(false);
 	}
 	

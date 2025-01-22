@@ -23,7 +23,7 @@ public class FirstPage extends BasePage {
 	
 	
 	public FirstPage() {
-		disableLink(firstLink);
+		disableLink(this.firstLink);
 		
 		//name
 		add(new Label("userDisplayName", sakaiProxy.getCurrentUserDisplayName()));
