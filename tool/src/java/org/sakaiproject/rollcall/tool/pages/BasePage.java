@@ -9,8 +9,10 @@ import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.head.*;
 import org.apache.wicket.markup.html.IHeaderContributor;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
@@ -34,7 +36,7 @@ import org.sakaiproject.rollcall.logic.SakaiProxy;
  */
 public class BasePage extends WebPage implements IHeaderContributor {
 
-	private static final Logger log = Logger.getLogger(BasePage.class); 
+	private static final Logger log = Logger.getLogger(BasePage.class);
 	
 	@SpringBean(name="org.sakaiproject.rollcall.logic.SakaiProxy")
 	protected SakaiProxy sakaiProxy;
@@ -46,12 +48,28 @@ public class BasePage extends WebPage implements IHeaderContributor {
 	Link<Void> secondLink;
 	Link<Void> thirdLink;
 	
-	FeedbackPanel feedbackPanel;
+	public final FeedbackPanel feedbackPanel;
+
+	/**
+	 * The current user
+	 */
+	protected String currentUserUuid;
+
 
 	public BasePage() {
-
 		log.debug("BasePage()");
 
+		// set locale (not implemented yet)
+		// setUserPreferredLocale();
+
+		// nav container
+		final WebMarkupContainer nav = new WebMarkupContainer("rollcallPageNav") {
+			private static final long serialVersionUID = 1L;
+
+		};
+
+		nav.setOutputMarkupId(true);
+		nav.setMarkupId("rollcall-navbar");
 
     	//first link
 		firstLink = new Link<Void>("firstLink") {
@@ -63,12 +81,18 @@ public class BasePage extends WebPage implements IHeaderContributor {
 		};
 		firstLink.add(new Label("firstLinkLabel",new ResourceModel("link.first")).setRenderBodyOnly(true));
 		firstLink.add(new AttributeModifier("title", new ResourceModel("link.first.tooltip")));
-		add(firstLink);
+		nav.add(firstLink);
 
 
 
 		//second link
-		secondLink = new Link<Void>("secondLink") {
+		this.secondLink = new BookmarkablePageLink<Void>("secondLink", SecondPage.class){
+			private static final long serialVersionUID = 1L;
+		};
+		this.secondLink.add(new Label("secondLinkLabel", getString("link.second")));
+		nav.add(this.secondLink);
+
+		/*secondLink = new Link<Void>("secondLink") {
 			private static final long serialVersionUID = 1L;
 			public void onClick() {
 				setResponsePage(new SecondPage());
@@ -76,7 +100,7 @@ public class BasePage extends WebPage implements IHeaderContributor {
 		};
 		secondLink.add(new Label("secondLinkLabel",new ResourceModel("link.second")).setRenderBodyOnly(true));
 		secondLink.add(new AttributeModifier("title", new ResourceModel("link.second.tooltip")));
-		add(secondLink);
+		add(secondLink);*/
 
 
 
@@ -90,9 +114,9 @@ public class BasePage extends WebPage implements IHeaderContributor {
 		thirdLink.add(new Label("thirdLinkLabel", new StringResourceModel("link.third", (Component) null).setParameters("3")).setRenderBodyOnly(true));
 
 		thirdLink.add(new AttributeModifier("title", new ResourceModel("link.third.tooltip")));
-		add(thirdLink);
+		nav.add(thirdLink);
 
-
+        add(nav);
 		// Add a FeedbackPanel for displaying our messages
         feedbackPanel = new FeedbackPanel("feedback"){
 
@@ -153,7 +177,7 @@ public class BasePage extends WebPage implements IHeaderContributor {
 	/** 
 	 * Helper to disable a link. Add the Sakai class 'current'.
 	 */
-	protected void disableLink(Link<Void> l) {
+	protected final void disableLink(final Link<Void> l) {
 		l.add(new AttributeAppender("class", new Model<String>("current"), " "));
 		l.setEnabled(false);
 	}

@@ -13,7 +13,7 @@ public class SecondPage extends BasePage {
 	Link<Void> toThirdPageLink;
 	
 	public SecondPage() {
-		disableLink(secondLink);
+		disableLink(this.secondLink);
 		
 		
 		//link to third page

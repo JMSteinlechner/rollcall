@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org" lang="en">
+<html xmlns:wicket="http://wicket.apache.org" lang="">
  
 <head>
 	<title><wicket:message key="page.title" /></title>
 </head>     
 <body>
 	<div class="portletBody">
-		<ul class="navIntraTool actionToolbar">
+		<ul class="navIntraTool actionToolbar" wicket:id="rollcallPageNav">
 			<li class="firstToolBarItem">
 				<span>
 					<a wicket:id="firstLink">
@@ -16,8 +16,9 @@
 			</li>
 			<li>
 				<span>
-					<a wicket:id="secondLink">
-						<span wicket:id="secondLinkLabel">[secondLinkLabel]</span>
+					<a wicket:id="secondLink" wicket:message="title:link.second.tooltip">
+						<wicket:message key="link.second" />
+						<span wicket:id="secondLinkLabel" class="sr-only"></span>
 					</a>
 				</span>
 			</li>
