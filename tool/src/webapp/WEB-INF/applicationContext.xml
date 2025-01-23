@@ -6,5 +6,5 @@
 
 
 	<!-- We need this file to satisfy Spring, but we don't need anything in it since we use Wicket's dependency injection -->
-	<context:component-scan base-package="org.sakaiproject.rollcall.tool"/>
+	<context:component-scan base-package="org.sakaiproject.rollcall.tool" />
 </beans>
