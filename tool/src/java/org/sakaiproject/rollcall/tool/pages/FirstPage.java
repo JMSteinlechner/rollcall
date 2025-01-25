@@ -35,8 +35,9 @@ public class FirstPage extends BasePage {
 
 		add(new Label("time", new StringResourceModel("the.time", (Component) null).setParameters(date, time)));
 
+		add(new Label("siteId", sakaiProxy.getCurrentSiteId()));
 
-
-
+//		bbbMeeting.fetchMeetingDetails();
+		add(new Label("meetingId", sakaiProxy.getCurrentSiteId()));
 	}
 }

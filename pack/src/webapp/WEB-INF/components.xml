@@ -59,4 +59,9 @@
         <property name="timeToIdle" value="3600" />
     </bean>
 
+	<bean id="org.sakaiproject.rollcall.bbb"
+		  class="org.sakaiproject.rollcall.bbb.BBBMeetingManager">
+		<property name="bbbMeetingManager" ref="org.sakaiproject.bbb.api.BBBMeetingManager" />
+	</bean>
+
 </beans>
