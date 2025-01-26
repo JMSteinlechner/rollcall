@@ -59,8 +59,10 @@
         <property name="timeToIdle" value="3600" />
     </bean>
 
-	<bean id="org.sakaiproject.rollcall.bbb"
-		  class="org.sakaiproject.rollcall.bbb.BBBMeetingManager">
+	<bean id="org.sakaiproject.rollcall.bbb.BBBMeetingProxy"
+		  class="org.sakaiproject.rollcall.bbb.BBBMeetingProxyImpl"
+		  init-method="init">
+
 		<property name="bbbMeetingManager" ref="org.sakaiproject.bbb.api.BBBMeetingManager" />
 	</bean>
 

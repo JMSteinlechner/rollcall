@@ -8,6 +8,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.model.Model; // For Model.of() in Wicket
 import java.util.Arrays; // For Arrays.asList()
+import java.util.List;
 
 
 /**
@@ -35,9 +36,11 @@ public class FirstPage extends BasePage {
 
 		add(new Label("time", new StringResourceModel("the.time", (Component) null).setParameters(date, time)));
 
-		add(new Label("siteId", sakaiProxy.getCurrentSiteId()));
+		String siteId = sakaiProxy.getCurrentSiteId();
+		add(new Label("siteId", siteId));
 
-//		bbbMeeting.fetchMeetingDetails();
-		add(new Label("meetingId", sakaiProxy.getCurrentSiteId()));
+		List<org.sakaiproject.bbb.api.storage.BBBMeeting> meetings = bbbMeetingProxy.fetchMeetingDetails(siteId);
+		String fisrtMeeting = String.valueOf(meetings.size());
+		add(new Label("meetingId", fisrtMeeting));
 	}
 }
