@@ -20,32 +20,36 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import org.sakaiproject.rollcall.logic.ProjectLogic;
 import org.sakaiproject.rollcall.logic.SakaiProxy;
+import org.sakaiproject.rollcall.logic.SqlServiceProxy;
 
 
 /**
  * This is our base page for our Sakai app. It sets up the containing markup and top navigation.
  * All top level pages should extend from this page so as to keep the same navigation. The content for those pages will
  * be rendered in the main area below the top nav.
- * 
+ *
  * <p>It also allows us to setup the API injection and any other common methods, which are then made available in the other pages.
- * 
+ *
  * @author Steve Swinsburg (steve.swinsburg@gmail.com)
  *
  */
 public class BasePage extends WebPage implements IHeaderContributor {
 
-	private static final Logger log = Logger.getLogger(BasePage.class); 
-	
+	private static final Logger log = Logger.getLogger(BasePage.class);
+
 	@SpringBean(name="org.sakaiproject.rollcall.logic.SakaiProxy")
 	protected SakaiProxy sakaiProxy;
-	
+
 	@SpringBean(name="org.sakaiproject.rollcall.logic.ProjectLogic")
 	protected ProjectLogic projectLogic;
-	
+
+	@SpringBean(name="org.sakaiproject.rollcall.logic.SqlServiceProxy")
+	protected SqlServiceProxy sqlServiceProxy;
+
 	Link<Void> firstLink;
 	Link<Void> secondLink;
 	Link<Void> thirdLink;
-	
+
 	FeedbackPanel feedbackPanel;
 
 	public BasePage() {
@@ -113,10 +117,9 @@ public class BasePage extends WebPage implements IHeaderContributor {
         	}
         };
         add(feedbackPanel);
-
     }
 
-	
+
 	/**
 	 * Helper to clear the feedbackpanel display.
 	 * @param f	FeedBackPanel
@@ -126,20 +129,20 @@ public class BasePage extends WebPage implements IHeaderContributor {
 			f.add(AttributeModifier.replace("class", ""));
 		}
 	}
-	
+
 	/**
-	 * This block adds the required wrapper markup to style it like a Sakai tool. 
+	 * This block adds the required wrapper markup to style it like a Sakai tool.
 	 * Add to this any additional CSS or JS references that you need.
-	 * 
+	 *
 	 */
 	public void renderHead(IHeaderResponse response) {
 		//get the Sakai skin header fragment from the request attribute
 		HttpServletRequest request = (HttpServletRequest)getRequest().getContainerRequest();
-		
+
 		response.render(StringHeaderItem.forString((String)request.getAttribute("sakai.html.head")));
 		response.render(OnLoadHeaderItem.forScript("setMainFrameHeight( window.name )"));
-		
-		
+
+
 		//Tool additions (at end so we can override if required)
 		//response.render(StringHeaderItem.forString("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"));
 		response.render(CssHeaderItem.forUrl("css/rollcall.css"));
@@ -148,16 +151,16 @@ public class BasePage extends WebPage implements IHeaderContributor {
 		//response.renderCSSReference("css/rollcall.css");
 		//response.renderJavascriptReference("js/my_tool_javascript.js");
 	}
-	
-	
-	/** 
+
+
+	/**
 	 * Helper to disable a link. Add the Sakai class 'current'.
 	 */
 	protected void disableLink(Link<Void> l) {
 		l.add(new AttributeAppender("class", new Model<String>("current"), " "));
 		l.setEnabled(false);
 	}
-	
-	
-	
+
+
+
 }
