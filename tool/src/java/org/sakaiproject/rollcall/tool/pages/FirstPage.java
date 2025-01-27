@@ -9,6 +9,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.model.Model; // For Model.of() in Wicket
 import java.util.Arrays; // For Arrays.asList()
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -40,7 +41,21 @@ public class FirstPage extends BasePage {
 		add(new Label("siteId", siteId));
 
 		List<org.sakaiproject.bbb.api.storage.BBBMeeting> meetings = bbbMeetingProxy.fetchMeetingDetails(siteId);
-		String fisrtMeeting = String.valueOf(meetings.size());
-		add(new Label("meetingId", fisrtMeeting));
+		int numMeetings = meetings.size();
+		add(new Label("numMeetings", String.valueOf(numMeetings)));
+
+		String meetingId = "None";
+		int numMeetingInfo = 0;
+		if(numMeetings != 0) {
+
+			meetingId = meetings.get(0).getId();
+
+			Map<String, Object> meetingInfo = bbbMeetingProxy.getMeetingInfo(meetingId);
+			numMeetingInfo = meetingInfo.size();
+		}
+
+		add(new Label("meetingId", meetingId));
+
+		add(new Label("numMeetingInfo", String.valueOf(numMeetingInfo)));
 	}
 }

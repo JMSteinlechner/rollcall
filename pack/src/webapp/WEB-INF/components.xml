@@ -64,6 +64,7 @@
 		  init-method="init">
 
 		<property name="bbbMeetingManager" ref="org.sakaiproject.bbb.api.BBBMeetingManager" />
+		<property name="bbbApi" ref="org.sakaiproject.bbb.api.BBBAPI" />
 	</bean>
 
 </beans>
