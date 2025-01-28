@@ -22,7 +22,10 @@
       		<groupId>org.sakaiproject.rollcall</groupId>
       		<artifactId>rollcall-api</artifactId>
     	</dependency>
-    	
+		<dependency>
+			<groupId>org.sakaiproject.rollcall</groupId>
+			<artifactId>rollcall-impl</artifactId>
+		</dependency>
     	<!-- third party dependencies -->
 		<dependency>
 			<groupId>org.apache.wicket</groupId>

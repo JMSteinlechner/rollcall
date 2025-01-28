@@ -8,6 +8,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.model.Model; // For Model.of() in Wicket
 import java.util.Arrays; // For Arrays.asList()
+import java.util.Map;
 
 
 /**
@@ -35,7 +36,9 @@ public class FirstPage extends BasePage {
 
 		add(new Label("time", new StringResourceModel("the.time", (Component) null).setParameters(date, time)));
 
+		Map<String, Object> meetingInfo = attendanceCallbackController.getMeetingInfo();
 
+		add(new Label("MeetingInfo", meetingInfo.toString()));
 
 
 	}

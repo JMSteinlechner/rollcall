@@ -9,7 +9,7 @@
 	
 	<name>rollcall - Implementation</name>
 	<groupId>org.sakaiproject.rollcall</groupId>
-		<artifactId>rollcall-impl</artifactId>
+	<artifactId>rollcall-impl</artifactId>
 
 	<packaging>jar</packaging>
 	

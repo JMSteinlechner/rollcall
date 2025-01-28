@@ -59,4 +59,9 @@
         <property name="timeToIdle" value="3600" />
     </bean>
 
+	<bean id="org.sakaiproject.rollcall.logic.AttendanceCallbackController"
+		  class="org.sakaiproject.rollcall.logic.AttendanceCallbackControllerImpl"
+		  init-method="init">
+	</bean>
+
 </beans>

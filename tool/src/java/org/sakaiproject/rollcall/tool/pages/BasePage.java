@@ -20,6 +20,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import org.sakaiproject.rollcall.logic.ProjectLogic;
 import org.sakaiproject.rollcall.logic.SakaiProxy;
+import org.sakaiproject.rollcall.logic.AttendanceCallbackController;
 
 
 /**
@@ -41,6 +42,9 @@ public class BasePage extends WebPage implements IHeaderContributor {
 	
 	@SpringBean(name="org.sakaiproject.rollcall.logic.ProjectLogic")
 	protected ProjectLogic projectLogic;
+
+	@SpringBean(name="org.sakaiproject.rollcall.logic.AttendanceCallbackController")
+	protected AttendanceCallbackController attendanceCallbackController;
 	
 	Link<Void> firstLink;
 	Link<Void> secondLink;

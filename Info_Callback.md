@@ -101,3 +101,7 @@ die `handleCallback` Methode ist als EventListener registriert. Die Funktion Han
 die MeetingInfo.
 
 **BigBlueButton build failt auch hier. Rollcall buildet**
+
+# Latest developments
+
+Dependency Injection is complete, however, the callback apperently isn't called in the endMeeting method of BaseBBBAPI
