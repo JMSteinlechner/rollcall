@@ -70,7 +70,7 @@ public class BasePage extends WebPage {
 		};
 
 		nav.setOutputMarkupId(true);
-		nav.setMarkupId("rollcall-navbar");
+		//nav.setMarkupId("rollcall-navbar");
 
 		//first link
 		this.firstLink = new BookmarkablePageLink<Void>("firstLink", FirstPage.class){
@@ -156,17 +156,18 @@ public class BasePage extends WebPage {
 	 * Helper to disable a link. Add the Sakai class 'current'.
 	 */
 	protected final void disableLink(final Link<Void> l) {
-		// since the disable does not apply correctly to the disabled link we need to apply it to the parent span
-		//l.add(new AttributeAppender("class", new Model<String>("current"), " "));
-
-		Component parentSpan = l.getParent(); // Get the parent <span>
-
-		if (parentSpan != null) {
-			parentSpan.add(new AttributeAppender("class", new Model<>("current"), " "));
-		}
+		// since the disable does not apply correctly to the disabled link we need to transfor the <a> into a span
+		/*l.add(new AttributeAppender("class", new Model<String>("current"), " "));
 
 		l.replace(new Label("screenreaderlabel", getString("link.screenreader.tabselected")));
-		l.setEnabled(false);
+		l.setEnabled(false);*/
+		WebMarkupContainer spanReplacement = new WebMarkupContainer(l.getId());
+		spanReplacement.add(new AttributeModifier("class", "current"));
+		spanReplacement.add(new AttributeModifier("title", l.getDefaultModelObjectAsString()));
+
+		spanReplacement.add(new Label("screenreaderlabel", getString("link.screenreader.tabselected")));
+
+		l.getParent().replace(spanReplacement);
 	}
 	
 	
