@@ -131,8 +131,7 @@ public class Rollcall extends WebApplication {
 
             }
         });
-
-        getJavaScriptLibrarySettings().setJQueryReference(new PackageResourceReference(Rollcall.class, "empty.js"));
+        
 
         // cleanup the HTML
         getMarkupSettings().setStripWicketTags(true);
