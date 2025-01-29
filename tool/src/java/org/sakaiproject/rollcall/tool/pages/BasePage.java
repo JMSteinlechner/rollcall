@@ -19,6 +19,7 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.sakaiproject.portal.util.PortalUtils;
 
 import org.sakaiproject.rollcall.logic.ProjectLogic;
 import org.sakaiproject.rollcall.logic.SakaiProxy;
@@ -135,20 +136,31 @@ public class BasePage extends WebPage {
 	 * 
 	 */
 	public void renderHead(IHeaderResponse response) {
+		super.renderHead(response);
+		final String version = PortalUtils.getCDNQuery();
+
 		//get the Sakai skin header fragment from the request attribute
 		HttpServletRequest request = (HttpServletRequest)getRequest().getContainerRequest();
 		
 		response.render(StringHeaderItem.forString((String)request.getAttribute("sakai.html.head")));
 		response.render(OnLoadHeaderItem.forScript("setMainFrameHeight( window.name )"));
+
+		// Tool additions (at end so we can override if required)
+		response.render(StringHeaderItem
+				.forString("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"));
 		
-		
-		//Tool additions (at end so we can override if required)
-		//response.render(StringHeaderItem.forString("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"));
+		//probably not necessary
 		response.render(CssHeaderItem.forUrl("css/rollcall.css"));
+
 		response.render(StringHeaderItem.forString("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"));
-		//Tool additions (at end so we can override if isRequired)
-		//response.renderCSSReference("css/rollcall.css");
-		//response.renderJavascriptReference("js/my_tool_javascript.js");
+		response.render(
+				new PriorityHeaderItem(
+						JavaScriptHeaderItem
+								.forUrl(String.format("/library/webjars/jquery/1.12.4/jquery.min.js%s", version))));
+		response.render(
+				new PriorityHeaderItem(
+						JavaScriptHeaderItem
+								.forUrl(String.format("/library/webjars/jquery-ui/1.12.1/jquery-ui.min.js%s", version))));
 	}
 	
 	
@@ -157,17 +169,17 @@ public class BasePage extends WebPage {
 	 */
 	protected final void disableLink(final Link<Void> l) {
 		// since the disable does not apply correctly to the disabled link we need to transfor the <a> into a span
-		/*l.add(new AttributeAppender("class", new Model<String>("current"), " "));
-
+		l.add(new AttributeAppender("class", new Model<String>("current"), " "));
 		l.replace(new Label("screenreaderlabel", getString("link.screenreader.tabselected")));
-		l.setEnabled(false);*/
-		WebMarkupContainer spanReplacement = new WebMarkupContainer(l.getId());
+		l.setEnabled(false);
+
+		/*WebMarkupContainer spanReplacement = new WebMarkupContainer(l.getId());
 		spanReplacement.add(new AttributeModifier("class", "current"));
 		spanReplacement.add(new AttributeModifier("title", l.getDefaultModelObjectAsString()));
 
 		spanReplacement.add(new Label("screenreaderlabel", getString("link.screenreader.tabselected")));
 
-		l.getParent().replace(spanReplacement);
+		l.getParent().replace(spanReplacement);*/
 	}
 	
 	
