@@ -5,9 +5,9 @@ import java.util.Date;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.StringResourceModel;
-import org.apache.wicket.model.Model; // For Model.of() in Wicket
-import java.util.Arrays; // For Arrays.asList()
+import org.apache.wicket.markup.html.form.Form;
 
 
 /**
@@ -35,9 +35,26 @@ public class FirstPage extends BasePage {
 		String time = new SimpleDateFormat(TIME_FORMAT).format(d);
 
 		add(new Label("time", new StringResourceModel("the.time", (Component) null).setParameters(date, time)));
+		// Formular für das Speichern in der Datenbank
+		Form<Void> saveForm = new Form<Void>("saveForm") {
+			@Override
+			protected void onSubmit() {
+				super.onSubmit();
+				saveToDatabase();
+			}
+		};
+		add(saveForm);
+	}
 
-
-
-
+	private void saveToDatabase() {
+		try {
+			// Beispiel: Speichert einen festen Wert in die Datenbank
+			String sql = "INSERT INTO example_table (column_name) VALUES ('Beispieldaten')";
+			sqlServiceProxy.executeQuery(sql);
+			// Erfolgsmeldung (falls erforderlich)
+			info("Eintrag wurde erfolgreich gespeichert!");
+		} catch (Exception e) {
+			error("Fehler beim Speichern in die Datenbank: " + e.getMessage());
+		}
 	}
 }

@@ -25,6 +25,7 @@ import org.sakaiproject.portal.util.PortalUtils;
 
 import org.sakaiproject.rollcall.logic.ProjectLogic;
 import org.sakaiproject.rollcall.logic.SakaiProxy;
+import org.sakaiproject.rollcall.logic.SqlServiceProxy;
 
 
 /**
@@ -47,7 +48,10 @@ public class BasePage extends WebPage {
 	
 	@SpringBean(name="org.sakaiproject.rollcall.logic.ProjectLogic")
 	protected ProjectLogic projectLogic;
-	
+
+	@SpringBean(name="org.sakaiproject.rollcall.logic.SqlServiceProxy")
+	protected SqlServiceProxy sqlServiceProxy;
+
 	Link<Void> firstLink;
 	Link<Void> secondLink;
 	Link<Void> thirdLink;
@@ -150,7 +154,7 @@ public class BasePage extends WebPage {
 		// Tool additions (at end so we can override if required)
 		response.render(StringHeaderItem
 				.forString("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"));
-		
+
 		//probably not necessary
 		response.render(CssHeaderItem.forUrl("css/rollcall.css"));
 

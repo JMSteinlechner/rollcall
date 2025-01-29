@@ -3,13 +3,17 @@
 
 <body>
 <wicket:extend>
-	
+
 	<p>Hello, <span wicket:id="userDisplayName" /></p>
-	
+
 	<p wicket:id="time" />
-	
-	
-	
+
+	<!-- Button für das Speichern in der Datenbank -->
+	<form wicket:id="saveForm">
+		<button type="submit">Speichern</button>
+	</form>
+
 </wicket:extend>
 </body>
 </html>
+
