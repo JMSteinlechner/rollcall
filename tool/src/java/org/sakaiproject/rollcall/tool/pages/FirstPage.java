@@ -20,7 +20,8 @@ public class FirstPage extends BasePage {
 
 	private static final String DATE_FORMAT="dd-MMM-yyyy";
 	private static final String TIME_FORMAT="HH:mm:ss";
-	
+
+	private static final long serialVersionUID = 1L;
 	
 	public FirstPage() {
 		disableLink(this.firstLink);

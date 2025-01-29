@@ -35,6 +35,7 @@ import org.sakaiproject.rollcall.logic.SakaiProxy;
  *
  */
 public class BasePage extends WebPage {
+	private static final long serialVersionUID = 1L;
 
 	private static final Logger log = Logger.getLogger(BasePage.class);
 	
@@ -155,7 +156,15 @@ public class BasePage extends WebPage {
 	 * Helper to disable a link. Add the Sakai class 'current'.
 	 */
 	protected final void disableLink(final Link<Void> l) {
-		l.add(new AttributeAppender("class", new Model<String>("current"), " "));
+		// since the disable does not apply correctly to the disabled link we need to apply it to the parent span
+		//l.add(new AttributeAppender("class", new Model<String>("current"), " "));
+
+		Component parentSpan = l.getParent(); // Get the parent <span>
+
+		if (parentSpan != null) {
+			parentSpan.add(new AttributeAppender("class", new Model<>("current"), " "));
+		}
+
 		l.replace(new Label("screenreaderlabel", getString("link.screenreader.tabselected")));
 		l.setEnabled(false);
 	}

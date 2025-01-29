@@ -26,7 +26,7 @@ import org.sakaiproject.rollcall.model.Thing;
  *
  */
 public class ThirdPage extends BasePage {
-
+	private static final long serialVersionUID = 1L;
 	ThingsDataProvider provider;
 	
 	public ThirdPage() {
