@@ -8,7 +8,7 @@
  	<bean id="org.sakaiproject.rollcall.logic.SakaiProxy"
     	class="org.sakaiproject.rollcall.logic.SakaiProxyImpl"
         init-method="init">
-
+        
         <!-- API injection -->
         <property name="securityService" ref="org.sakaiproject.authz.api.SecurityService" />
         <property name="sessionManager" ref="org.sakaiproject.tool.api.SessionManager" />
@@ -17,19 +17,19 @@
 		<property name="eventTrackingService" ref="org.sakaiproject.event.api.EventTrackingService" />
 		<property name="serverConfigurationService" ref="org.sakaiproject.component.api.ServerConfigurationService" />
 		<property name="siteService" ref="org.sakaiproject.site.api.SiteService" />
-
+		
 	</bean>
-
+	
 	<!-- ProjectLogic -->
 	<bean id="org.sakaiproject.rollcall.logic.ProjectLogic"
     	class="org.sakaiproject.rollcall.logic.ProjectLogicImpl"
     	init-method="init">
-
-    	<property name="dao" ref="org.sakaiproject.rollcall.dao.ProjectDao" />
-    	<property name="cache" ref="org.sakaiproject.rollcall.cache" />
-
+    	
+    	<property name="dao" ref="org.sakaiproject.rollcall.dao.ProjectDao" />	
+    	<property name="cache" ref="org.sakaiproject.rollcall.cache" />	
+    	
     </bean>
-
+    
     <!-- DAO. This uses the DataSource that has already been setup by Sakai  -->
 	<bean id="org.sakaiproject.rollcall.dao.ProjectDao"
 		class="org.sakaiproject.rollcall.dao.impl.ProjectDaoImpl"
@@ -40,9 +40,9 @@
 					<ref bean="javax.sql.DataSource" />
 				</constructor-arg>
 			</bean>
-		</property>
+		</property>	
 	</bean>
-
+	
 	<!-- Cache: ttl=1 hour -->
     <bean id="org.sakaiproject.rollcall.cache"
         class="org.springframework.cache.ehcache.EhCacheFactoryBean">
@@ -58,6 +58,14 @@
         <property name="timeToLive" value="3600" />
         <property name="timeToIdle" value="3600" />
     </bean>
+
+	<bean id="org.sakaiproject.rollcall.bbb.BBBMeetingProxy"
+		  class="org.sakaiproject.rollcall.bbb.BBBMeetingProxyImpl"
+		  init-method="init">
+
+		<property name="bbbMeetingManager" ref="org.sakaiproject.bbb.api.BBBMeetingManager" />
+		<property name="bbbApi" ref="org.sakaiproject.bbb.api.BBBAPI" />
+	</bean>
 
 	<!-- SqlService -->
 	<bean id="org.sakaiproject.rollcall.logic.SqlServiceProxy"
