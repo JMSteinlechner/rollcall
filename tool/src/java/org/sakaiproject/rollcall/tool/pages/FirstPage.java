@@ -25,13 +25,14 @@ public class FirstPage extends BasePage {
 	private static final String DATE_FORMAT = "dd-MMM-yyyy";
 	private static final String TIME_FORMAT = "HH:mm:ss";
 
-
+	private static final long serialVersionUID = 1L;
+	
 	public FirstPage() {
-		disableLink(firstLink);
-
+		disableLink(this.firstLink);
+		
 		//name
 		add(new Label("userDisplayName", sakaiProxy.getCurrentUserDisplayName()));
-
+		
 		//time
 		Date d = new Date();
 		String date = new SimpleDateFormat(DATE_FORMAT).format(d);

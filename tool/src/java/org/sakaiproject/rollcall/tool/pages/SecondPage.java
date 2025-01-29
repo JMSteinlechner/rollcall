@@ -9,11 +9,11 @@ import org.apache.wicket.markup.html.link.Link;
  *
  */
 public class SecondPage extends BasePage {
-
+	private static final long serialVersionUID = 1L;
 	Link<Void> toThirdPageLink;
 	
 	public SecondPage() {
-		disableLink(secondLink);
+		disableLink(this.secondLink);
 		
 		
 		//link to third page
