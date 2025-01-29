@@ -21,6 +21,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.sakaiproject.rollcall.logic.ProjectLogic;
 import org.sakaiproject.rollcall.logic.SakaiProxy;
 import org.sakaiproject.rollcall.bbb.BBBMeetingProxy;
+import org.sakaiproject.rollcall.logic.SqlServiceProxy;
 
 
 /**
@@ -45,7 +46,11 @@ public class BasePage extends WebPage implements IHeaderContributor {
 
 	@SpringBean(name="org.sakaiproject.rollcall.bbb.BBBMeetingProxy")
 	protected BBBMeetingProxy bbbMeetingProxy;
-	
+
+
+	@SpringBean(name="org.sakaiproject.rollcall.logic.SqlServiceProxy")
+	protected SqlServiceProxy sqlServiceProxy;
+
 	Link<Void> firstLink;
 	Link<Void> secondLink;
 	Link<Void> thirdLink;

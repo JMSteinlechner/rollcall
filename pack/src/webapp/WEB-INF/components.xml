@@ -67,4 +67,11 @@
 		<property name="bbbApi" ref="org.sakaiproject.bbb.api.BBBAPI" />
 	</bean>
 
+	<!-- SqlService -->
+	<bean id="org.sakaiproject.rollcall.logic.SqlServiceProxy"
+		  class="org.sakaiproject.rollcall.logic.SqlServiceProxyImpl"
+		  init-method="init">
+		<property name="sqlService" ref="org.sakaiproject.db.api.SqlService" />
+	</bean>
+
 </beans>
