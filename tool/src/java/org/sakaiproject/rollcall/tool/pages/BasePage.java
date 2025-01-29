@@ -170,11 +170,11 @@ public class BasePage extends WebPage {
 	 * Helper to disable a link. Add the Sakai class 'current'.
 	 */
 	protected final void disableLink(final Link<Void> l) {
-		// since the disable does not apply correctly to the disabled link we need to transfor the <a> into a span
-		/*l.add(new AttributeAppender("class", new Model<String>("current"), " "));
-		l.replace(new Label("screenreaderlabel", getString("link.screenreader.tabselected")));
-		l.setEnabled(false);*/
-// Example: add a CSS class for visual styling
+		/*
+		 * since the disable does not apply correctly to the disabled link we need to transform the <a> into a span
+		 * the base code from other tools and sakai navtive tools for disable link didnt work
+		 * it works not with the add new behaviour function
+		 */
 		l.add(new AttributeAppender("class", Model.of("current"), " "));
 
 		// Replace the label inside if you have a <span wicket:id="screenreaderlabel"> in your markup
