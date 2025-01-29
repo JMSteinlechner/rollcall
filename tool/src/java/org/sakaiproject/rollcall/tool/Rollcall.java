@@ -4,6 +4,7 @@ import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.IRequestCycle;
 import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.cycle.IRequestCycleListener;
+import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
@@ -128,7 +129,7 @@ public class Rollcall extends WebApplication {
             }
         });
 
-
+        getJavaScriptLibrarySettings().setJQueryReference(new PackageResourceReference(Rollcall.class, "empty.js"));
 
         // cleanup the HTML
         getMarkupSettings().setStripWicketTags(true);
