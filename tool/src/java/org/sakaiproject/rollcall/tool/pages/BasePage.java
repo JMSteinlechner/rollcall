@@ -6,7 +6,9 @@ import org.apache.log4j.Logger;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.AttributeAppender;
+import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.feedback.FeedbackMessage;
+import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.head.*;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -169,17 +171,36 @@ public class BasePage extends WebPage {
 	 */
 	protected final void disableLink(final Link<Void> l) {
 		// since the disable does not apply correctly to the disabled link we need to transfor the <a> into a span
-		l.add(new AttributeAppender("class", new Model<String>("current"), " "));
+		/*l.add(new AttributeAppender("class", new Model<String>("current"), " "));
 		l.replace(new Label("screenreaderlabel", getString("link.screenreader.tabselected")));
+		l.setEnabled(false);*/
+// Example: add a CSS class for visual styling
+		l.add(new AttributeAppender("class", Model.of("current"), " "));
+
+		// Replace the label inside if you have a <span wicket:id="screenreaderlabel"> in your markup
+		l.replace(new Label("screenreaderlabel", getString("link.screenreader.tabselected")));
+
+		// Add a Behavior that, when the link is disabled, changes <a> to <span> and removes href
+		l.add(new Behavior() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void onComponentTag(Component component, ComponentTag tag) {
+				super.onComponentTag(component, tag);
+
+				// Only transform if the link is actually disabled at render-time
+				if (!component.isEnabledInHierarchy()) {
+					// Turn <a> into <span>
+					tag.setName("span");
+					// Remove the href attribute altogether
+					tag.remove("href");
+				}
+			}
+		});
+
+		// Finally, mark the link as disabled
 		l.setEnabled(false);
 
-		/*WebMarkupContainer spanReplacement = new WebMarkupContainer(l.getId());
-		spanReplacement.add(new AttributeModifier("class", "current"));
-		spanReplacement.add(new AttributeModifier("title", l.getDefaultModelObjectAsString()));
-
-		spanReplacement.add(new Label("screenreaderlabel", getString("link.screenreader.tabselected")));
-
-		l.getParent().replace(spanReplacement);*/
 	}
 	
 	
