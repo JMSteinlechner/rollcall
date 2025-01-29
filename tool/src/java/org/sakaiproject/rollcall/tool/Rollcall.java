@@ -38,7 +38,10 @@ public class Rollcall extends WebApplication {
         getComponentInstantiationListeners().add(new SpringComponentInjector(this));
 
         // Add ResourceLoader that integrates with Sakai's Resource Loader
-        getResourceSettings().getStringResourceLoaders().add(0, new RollcallStringResourceLoader());
+        // I think this broke my strings in wicket9
+        //getResourceSettings().getStringResourceLoaders().add(0, new RollcallStringResourceLoader());
+
+
         //Don't throw an exception if we are missing a property, just fallback
         getResourceSettings().setThrowExceptionOnMissingResource(false);
 
