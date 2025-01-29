@@ -25,6 +25,7 @@ import org.sakaiproject.portal.util.PortalUtils;
 
 import org.sakaiproject.rollcall.logic.ProjectLogic;
 import org.sakaiproject.rollcall.logic.SakaiProxy;
+import org.sakaiproject.rollcall.bbb.BBBMeetingProxy;
 import org.sakaiproject.rollcall.logic.SqlServiceProxy;
 
 
@@ -32,9 +33,9 @@ import org.sakaiproject.rollcall.logic.SqlServiceProxy;
  * This is our base page for our Sakai app. It sets up the containing markup and top navigation.
  * All top level pages should extend from this page so as to keep the same navigation. The content for those pages will
  * be rendered in the main area below the top nav.
- * 
+ *
  * <p>It also allows us to setup the API injection and any other common methods, which are then made available in the other pages.
- * 
+ *
  * @author Steve Swinsburg (steve.swinsburg@gmail.com)
  *
  */
@@ -42,12 +43,16 @@ public class BasePage extends WebPage {
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger log = Logger.getLogger(BasePage.class);
-	
+
 	@SpringBean(name="org.sakaiproject.rollcall.logic.SakaiProxy")
 	protected SakaiProxy sakaiProxy;
-	
+
 	@SpringBean(name="org.sakaiproject.rollcall.logic.ProjectLogic")
 	protected ProjectLogic projectLogic;
+
+	@SpringBean(name="org.sakaiproject.rollcall.bbb.BBBMeetingProxy")
+	protected BBBMeetingProxy bbbMeetingProxy;
+
 
 	@SpringBean(name="org.sakaiproject.rollcall.logic.SqlServiceProxy")
 	protected SqlServiceProxy sqlServiceProxy;
@@ -55,14 +60,13 @@ public class BasePage extends WebPage {
 	Link<Void> firstLink;
 	Link<Void> secondLink;
 	Link<Void> thirdLink;
-	
+
 	public final FeedbackPanel feedbackPanel;
 
 	/**
 	 * The current user
 	 */
 	protected String currentUserUuid;
-
 
 	public BasePage() {
 		log.debug("BasePage()");
@@ -122,10 +126,9 @@ public class BasePage extends WebPage {
         	}
         };
         add(feedbackPanel);
-
     }
 
-	
+
 	/**
 	 * Helper to clear the feedbackpanel display.
 	 * @param f	FeedBackPanel
@@ -135,11 +138,11 @@ public class BasePage extends WebPage {
 			f.add(AttributeModifier.replace("class", ""));
 		}
 	}
-	
+
 	/**
-	 * This block adds the required wrapper markup to style it like a Sakai tool. 
+	 * This block adds the required wrapper markup to style it like a Sakai tool.
 	 * Add to this any additional CSS or JS references that you need.
-	 * 
+	 *
 	 */
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
@@ -147,7 +150,7 @@ public class BasePage extends WebPage {
 
 		//get the Sakai skin header fragment from the request attribute
 		HttpServletRequest request = (HttpServletRequest)getRequest().getContainerRequest();
-		
+
 		response.render(StringHeaderItem.forString((String)request.getAttribute("sakai.html.head")));
 		response.render(OnLoadHeaderItem.forScript("setMainFrameHeight( window.name )"));
 
@@ -168,9 +171,9 @@ public class BasePage extends WebPage {
 						JavaScriptHeaderItem
 								.forUrl(String.format("/library/webjars/jquery-ui/1.12.1/jquery-ui.min.js%s", version))));
 	}
-	
-	
-	/** 
+
+
+	/**
 	 * Helper to disable a link. Add the Sakai class 'current'.
 	 */
 	protected final void disableLink(final Link<Void> l) {
@@ -206,7 +209,7 @@ public class BasePage extends WebPage {
 		l.setEnabled(false);
 
 	}
-	
-	
-	
+
+
+
 }
