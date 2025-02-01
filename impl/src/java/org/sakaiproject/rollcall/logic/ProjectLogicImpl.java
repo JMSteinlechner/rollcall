@@ -8,8 +8,7 @@ import lombok.Setter;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
 
 import org.sakaiproject.rollcall.dao.ProjectDao;
 import org.sakaiproject.rollcall.logic.SakaiProxy;
@@ -23,7 +22,7 @@ import org.sakaiproject.rollcall.model.Thing;
  */
 public class ProjectLogicImpl implements ProjectLogic {
 
-	private static final Logger log = LogManager.getLogger(ProjectLogicImpl.class);
+	private static final Logger log = Logger.getLogger(ProjectLogicImpl.class);
 
 	
 	/**
