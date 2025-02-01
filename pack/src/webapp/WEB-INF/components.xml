@@ -42,7 +42,22 @@
 			</bean>
 		</property>	
 	</bean>
-	
+
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="packagesToScan" value="org.sakaiproject.rollcall.model"/>
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+	</bean>
+
 	<!-- Cache: ttl=1 hour -->
     <bean id="org.sakaiproject.rollcall.cache"
         class="org.springframework.cache.ehcache.EhCacheFactoryBean">
