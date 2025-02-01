@@ -76,7 +76,9 @@ public class ProjectDaoImpl extends JdbcDaoSupport implements ProjectDao {
 	 */
 	@SuppressWarnings("unchecked")
 	public boolean addThing(Thing t) {
-		
+		//info level logging for debug
+		log.info("addThing( " + t.toString() + ")");
+
 		if(log.isDebugEnabled()) {
 			log.debug("addThing( " + t.toString() + ")");
 		}
