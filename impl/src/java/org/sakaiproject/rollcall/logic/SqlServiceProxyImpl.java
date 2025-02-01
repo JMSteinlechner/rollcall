@@ -3,20 +3,19 @@ package org.sakaiproject.rollcall.logic;
 import lombok.Getter;
 import lombok.Setter;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
 import org.sakaiproject.db.api.SqlService;
 
 
 public class SqlServiceProxyImpl implements SqlServiceProxy {
-    private static final Logger log = LogManager.getLogger(SqlServiceProxyImpl.class);
+    private static final Logger log = Logger.getLogger(SqlServiceProxyImpl.class);
 
     @Setter
     private SqlService sqlService;
 
     @Override
     public void executeQuery(String sql) {
-        log.info("Executing query: {}", sql);
+        log.info("Executing query: {"+ sql +"}");
         try {
             sqlService.dbWrite(sql);
         } catch (Exception e) {
@@ -26,7 +25,7 @@ public class SqlServiceProxyImpl implements SqlServiceProxy {
 
     @Override
     public String fetchSingleResult(String sql) {
-        log.info("Fetching single result for query: {}", sql);
+        log.info("Fetching single result for query: {"+ sql +"}");
         try {
             return sqlService.dbRead(sql).get(0).toString();
         } catch (Exception e) {
