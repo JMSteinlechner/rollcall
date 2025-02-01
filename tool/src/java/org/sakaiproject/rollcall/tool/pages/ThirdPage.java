@@ -76,7 +76,7 @@ public class ThirdPage extends BasePage {
 	/**
 	 * Form for adding a new Thing. It is automatically linked up if the form fields match the object fields
 	 */
-	private class ThingForm extends Form<Void> {
+	private class ThingForm extends Form<Thing> {
 	   
 		public ThingForm(String id, Thing thing) {
 	        super(id, new CompoundPropertyModel(thing));
