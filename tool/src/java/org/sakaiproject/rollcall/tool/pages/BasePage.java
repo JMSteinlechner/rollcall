@@ -60,6 +60,7 @@ public class BasePage extends WebPage {
 	Link<Void> firstLink;
 	Link<Void> secondLink;
 	Link<Void> thirdLink;
+	Link<Void> statistikLink;
 
 	public final FeedbackPanel feedbackPanel;
 
@@ -97,15 +98,22 @@ public class BasePage extends WebPage {
 		this.secondLink.add(new Label("screenreaderlabel", getString("link.screenreader.tabnotselected")));
 		nav.add(this.secondLink);
 
-		//second link
+		//third link
 		this.thirdLink = new BookmarkablePageLink<Void>("thirdLink", ThirdPage.class){
 			private static final long serialVersionUID = 1L;
 		};
 		this.thirdLink.add(new Label("screenreaderlabel", getString("link.screenreader.tabnotselected")));
 		nav.add(this.thirdLink);
 
+		//statistic link
+		this.statistikLink = new BookmarkablePageLink<Void>("statistikLink", CourseStatistikPage.class){
+			private static final long serialVersionUID = 1L;
+		};
+		this.statistikLink.add(new Label("screenreaderlabel", getString("link.screenreader.tabnotselected")));
+		nav.add(this.statistikLink);
 
-        add(nav);
+
+		add(nav);
 		// Add a FeedbackPanel for displaying our messages
         feedbackPanel = new FeedbackPanel("feedback"){
 

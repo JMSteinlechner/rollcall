@@ -1,14 +1,14 @@
 package org.sakaiproject.rollcall.framework;
 
-public class Attendee {
+public class Attendant {
     private Long id;
     private String firstname;
     private String lastname;
 
-    public Attendee() {
+    public Attendant() {
     }
 
-    public Attendee(Long id, String firstname, String lastname) {
+    public Attendant(Long id, String firstname, String lastname) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
