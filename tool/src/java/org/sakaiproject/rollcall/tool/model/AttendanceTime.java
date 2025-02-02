@@ -1,4 +1,6 @@
-package org.sakaiproject.rollcall.framework;
+package org.sakaiproject.rollcall.tool.model;
+
+import java.time.LocalDateTime;
 
 public class AttendanceTime {
     private Long id;

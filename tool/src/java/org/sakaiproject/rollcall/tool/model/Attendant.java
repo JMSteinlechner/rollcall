@@ -1,4 +1,4 @@
-package org.sakaiproject.rollcall.framework;
+package org.sakaiproject.rollcall.tool.model;
 
 public class Attendant {
     private Long id;
