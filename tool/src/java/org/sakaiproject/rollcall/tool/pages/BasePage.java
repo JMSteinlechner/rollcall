@@ -106,7 +106,7 @@ public class BasePage extends WebPage {
 		nav.add(this.thirdLink);
 
 		//statistic link
-		this.statistikLink = new BookmarkablePageLink<Void>("statistikLink", CourseStatistikPage.class){
+		this.statistikLink = new BookmarkablePageLink<Void>("statistikLink", CourseStatisticPage.class){
 			private static final long serialVersionUID = 1L;
 		};
 		this.statistikLink.add(new Label("screenreaderlabel", getString("link.screenreader.tabnotselected")));
