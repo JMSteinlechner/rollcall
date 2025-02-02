@@ -6,10 +6,10 @@ public class AttendanceTime {
     private Long studentId;
     private LocalDateTime attendanceTime;
 
-    public Attendee() {
+    public AttendanceTime() {
     }
 
-    public Attendee(Long id, Long courseId, Long studentId, LocalDateTime attendanceTime) {
+    public AttendanceTime(Long id, Long courseId, Long studentId, LocalDateTime attendanceTime) {
         this.id = id;
         this.courseId = courseId;
         this.studentId = studentId;

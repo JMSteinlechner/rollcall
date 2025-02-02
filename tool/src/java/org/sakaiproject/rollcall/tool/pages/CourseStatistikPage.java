@@ -37,7 +37,7 @@ public class CourseStatisticPage extends BasePage {
 		List<Attendant> attendantList = setAttendee();
 		setAttendanceTime(attendantList);
 	}
-}
+
 
 private List<Attendant> setAttendee() {
 	List<Attendant> attendantList = Arrays.asList(
