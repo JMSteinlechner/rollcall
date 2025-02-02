@@ -81,7 +81,7 @@ private void setAttendanceTime(List<Attendant> attendantList) {
 			new AttendanceTime(21L, 1L, 3L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(35)))
 	);
 
-	ListView<AttendanceTime> listView = new ListView<AttendanceTime>("addendanceTimeList", attendanceTimeList) {
+	ListView<AttendanceTime> listView = new ListView<AttendanceTime>("attendanceTimeList", attendanceTimeList) {
 		protected void populateItem(ListItem<AttendanceTime> item) {
 			AttendanceTime attendanceTime = item.getModelObject();
 			item.add(new Label("studentId", new PropertyModel<>(attendanceTime, "studentId")));
