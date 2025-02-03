@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns:wicket="http://wicket.apache.org" lang="en">
+
+<body>
+<wicket:extend>
+
+	<h1>Kursteilnehmer</h1>
+	<table border="1">
+		<thead>
+		<tr>
+			<th>Matrikelnummer</th>
+			<th>Vorname</th>
+			<th>Nachname</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr wicket:id="attendantList">
+			<td wicket:id="number"></td>
+			<td wicket:id="firstname"></td>
+			<td wicket:id="lastname"></td>
+		</tr>
+		</tbody>
+	</table>
+
+	<table border="1">
+		<thead>
+		<tr>
+			<th>Matrikelnummer</th>
+			<th>Anwesenheitszeit</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr wicket:id="attendanceTimeList">
+			<td wicket:id="studentId"></td>
+			<td wicket:id="attendanceTime"></td>
+		</tr>
+		</tbody>
+	</table>
+
+		<img wicket:id="attendanceTimeChart" />
+
+
+
+</wicket:extend>
+</body>
+</html>

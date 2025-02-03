@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="rollcall-pack" />
+        <module name="rollcall-api" />
+        <module name="rollcall-impl" />
+        <module name="rollcall-tool" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="rollcall" options="--add-exports=java.xml/com.sun.org.apache.xml.internal.serializer=ALL-UNNAMED --add-exports=java.xml/com.sun.org.apache.xml.internal.utils=ALL-UNNAMED" />
+      <module name="rollcall-api" options="--add-exports=java.xml/com.sun.org.apache.xml.internal.serializer=ALL-UNNAMED --add-exports=java.xml/com.sun.org.apache.xml.internal.utils=ALL-UNNAMED" />
+      <module name="rollcall-impl" options="--add-exports=java.xml/com.sun.org.apache.xml.internal.serializer=ALL-UNNAMED --add-exports=java.xml/com.sun.org.apache.xml.internal.utils=ALL-UNNAMED" />
+      <module name="rollcall-pack" options="--add-exports=java.xml/com.sun.org.apache.xml.internal.serializer=ALL-UNNAMED --add-exports=java.xml/com.sun.org.apache.xml.internal.utils=ALL-UNNAMED" />
+      <module name="rollcall-tool" options="--add-exports=java.xml/com.sun.org.apache.xml.internal.serializer=ALL-UNNAMED --add-exports=java.xml/com.sun.org.apache.xml.internal.utils=ALL-UNNAMED" />
+    </option>
+  </component>
+</project>
