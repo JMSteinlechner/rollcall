@@ -51,12 +51,12 @@ private List<Attendant> setAttendee() {
 			new Attendant(3L, "Jakob", "Maier")
 	);
 
-	ListView<Attendant> listViewAttendant = new ListView<Attendant>("attendantList", attendantList) {
+	ListView<Attendant> listViewAttendant = new ListView<>("attendantList", attendantList) {
+		@Override
 		protected void populateItem(ListItem<Attendant> item) {
-			Attendant attendant = item.getModelObject();
-			item.add(new Label("number", new PropertyModel<>(attendant, "number")));
-			item.add(new Label("firstname", new PropertyModel<>(attendant, "firstname")));
-			item.add(new Label("lastname", new PropertyModel<>(attendant, "lastname")));
+			item.add(new Label("number", new PropertyModel<>(item.getModel(), "number")));
+			item.add(new Label("firstname", new PropertyModel<>(item.getModel(), "firstname")));
+			item.add(new Label("lastname", new PropertyModel<>(item.getModel(), "lastname")));
 		}
 	};
 
@@ -86,11 +86,11 @@ private void setAttendanceTime(List<Attendant> attendantList) {
 			new AttendanceTime(21L, 1L, 3L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(35)))
 	);
 
-	ListView<AttendanceTime> listViewAttendantTime = new ListView<AttendanceTime>("attendanceTimeList", attendanceTimeList) {
+	ListView<AttendanceTime> listViewAttendantTime = new ListView<>("attendanceTimeList", attendanceTimeList) {
+		@Override
 		protected void populateItem(ListItem<AttendanceTime> item) {
-			AttendanceTime attendanceTime = item.getModelObject();
-			item.add(new Label("studentId", new PropertyModel<>(attendanceTime, "studentId")));
-			item.add(new Label("attendanceTime", new PropertyModel<>(attendanceTime, "attendanceTime")));
+			item.add(new Label("studentId", new PropertyModel<>(item.getModel(), "studentId")));
+			item.add(new Label("attendanceTime", new PropertyModel<>(item.getModel(), "attendanceTime")));
 		}
 	};
 
