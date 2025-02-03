@@ -6,6 +6,7 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.Model; // For Model.of() in Wicket
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import java.util.Arrays; // For Arrays.asList()
 import java.util.List;
 
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.request.resource.DynamicImageResource;
 import org.apache.wicket.util.file.File;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
@@ -36,12 +38,13 @@ public class CourseStatisticPage extends BasePage {
 	public CourseStatisticPage() {
 		disableLink(this.statisticLink);
 		List<Attendant> attendantList = setAttendee();
-		setAttendanceTime(attendantList);
+		byte[] temp = setAttendanceTime(attendantList);
 
 		add(new Image("attendanceTimeChartImage", new DynamicImageResource() {
+
 			@Override
-			protected byte[] getImageData(IResource.Attributes attributes) {
-				return generateAttendanceTimeChartImage();
+			protected byte[] getImageData(Attributes attributes) {
+				return temp;
 			}
 		}));
 	}
@@ -68,7 +71,7 @@ public class CourseStatisticPage extends BasePage {
 		return attendantList;
 	}
 
-	private void setAttendanceTime(List<Attendant> attendantList) {
+	private byte[] setAttendanceTime(List<Attendant> attendantList) {
 		List<AttendanceTime> attendanceTimeList = Arrays.asList(
 				new AttendanceTime(1L, 1L, 1L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(5))),
 				new AttendanceTime(2L, 1L, 1L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(10))),
@@ -117,7 +120,7 @@ public class CourseStatisticPage extends BasePage {
 		);
 
 		// Convert chart to image
-		BufferedImage image = chart.createBufferedImage(600, 400);
+		BufferedImage image = attendanceTimeLineChart.createBufferedImage(600, 400);
 		return toByteArray(image);
 	}
 
