@@ -11,7 +11,7 @@
 	<groupId>org.sakaiproject.rollcall</groupId>
 		<artifactId>rollcall-impl</artifactId>
 
-	<packaging>jar</packaging>
+	<packaging>sakai-component</packaging>
 	
   	<dependencies>
 
