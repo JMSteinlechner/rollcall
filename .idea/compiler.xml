@@ -6,12 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="rollcall-pack" />
         <module name="rollcall-api" />
         <module name="rollcall-impl" />
         <module name="rollcall-tool" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="rollcall-pack" target="11" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
