@@ -4,3 +4,4 @@
 /impl/target*
 /tool/target*
 /pack/target*
+.idea/*
