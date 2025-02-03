@@ -35,10 +35,12 @@ public class CourseStatisticPage extends BasePage {
 
 	private static final long serialVersionUID = 1L;
 
+
 	public CourseStatisticPage() {
-		disableLink(this.statistikLink);
+		disableLink(this.statisticLink);
 		List<Attendant> attendantList = setAttendee();
 		setAttendanceTime(attendantList);
+
 	}
 
 
@@ -49,7 +51,7 @@ private List<Attendant> setAttendee() {
 			new Attendant(3L, "Jakob", "Maier")
 	);
 
-	ListView<Attendant> listView = new ListView<Attendant>("attendantList", attendantList) {
+	ListView<Attendant> listViewAttendant = new ListView<Attendant>("attendantList", attendantList) {
 		protected void populateItem(ListItem<Attendant> item) {
 			Attendant attendant = item.getModelObject();
 			item.add(new Label("number", new PropertyModel<>(attendant, "number")));
@@ -57,6 +59,9 @@ private List<Attendant> setAttendee() {
 			item.add(new Label("lastname", new PropertyModel<>(attendant, "lastname")));
 		}
 	};
+
+	add(listViewAttendant);
+
 	return attendantList;
 }
 
@@ -81,13 +86,15 @@ private void setAttendanceTime(List<Attendant> attendantList) {
 			new AttendanceTime(21L, 1L, 3L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(35)))
 	);
 
-	ListView<AttendanceTime> listView = new ListView<AttendanceTime>("attendanceTimeList", attendanceTimeList) {
+	ListView<AttendanceTime> listViewAttendantTime = new ListView<AttendanceTime>("attendanceTimeList", attendanceTimeList) {
 		protected void populateItem(ListItem<AttendanceTime> item) {
 			AttendanceTime attendanceTime = item.getModelObject();
 			item.add(new Label("studentId", new PropertyModel<>(attendanceTime, "studentId")));
 			item.add(new Label("attendanceTime", new PropertyModel<>(attendanceTime, "attendanceTime")));
 		}
 	};
+
+	add(listViewAttendantTime);
 
 	DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 	for(Attendant attendant : attendantList){
