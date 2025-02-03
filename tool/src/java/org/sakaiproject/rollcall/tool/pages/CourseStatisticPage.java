@@ -11,8 +11,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Arrays; // For Arrays.asList()
-import java.util.List;
+import java.time.ZoneOffset;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.resource.DynamicImageResource;
@@ -21,8 +22,11 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.category.DefaultIntervalCategoryDataset;
+import org.jfree.data.general.DefaultValueDataset;
 import org.sakaiproject.rollcall.tool.model.AttendanceTime;
 import org.sakaiproject.rollcall.tool.model.Attendant;
+import org.sakaiproject.rollcall.tool.model.Course;
 
 
 /**
@@ -48,8 +52,8 @@ public class CourseStatisticPage extends BasePage {
 				return temp;
 			}
 		}));
-		LocalDateTime now = LocalDateTime.Now();
-		course = new Course(1,"Testvorlesung",now, now.minusHours(2));
+		LocalDateTime now = LocalDateTime.now();
+		course = new Course(1L,"Testvorlesung",now, now.minusHours(2));
 	}
 
 
@@ -106,18 +110,31 @@ public class CourseStatisticPage extends BasePage {
 		add(listViewAttendantTime);
 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		Map<LocalDate, Long> attendanceCountByDateTime;
-		List<Long> studentNumbers = attendantList.stream().map(al -> al.getId());
 
-			attendanceCountByDateTime = attendanceTimeList.stream()
-					.filter(atl -> atl.getCourseId() == course.getId()
-							&& studentNumbers.contains(atl.getStudentId())
-							&& atl.getAttendanceTime().isAfter(course.getStart())
-							&& atl.getAttendanceTime().isAfter(course.getStart()))
-					.collect(Collectors.groupingBy(
-							atl -> atl.getAttendanceTime().getMinute(),
-							Collectors.counting()
-					)).foreach((date, count) -> dataset.addValue(date,"Anwesende",count));
+		List<Long> studentNumbers = new ArrayList<Long>();
+
+		for (Attendant al: attendantList){
+			studentNumbers.add(al.getId());
+		}
+
+
+		Map<LocalDateTime, Long> attendanceCountByDateTime = new HashMap<>();
+		for(AttendanceTime atl: attendanceTimeList){
+			if(atl.getCourseId() == course.getId()
+					&& studentNumbers.contains(atl.getStudentId())
+					&& atl.getAttendanceTime().isAfter(course.getStart())
+					&& atl.getAttendanceTime().isBefore(course.getEnd())){
+				if(attendanceCountByDateTime.containsKey(atl.getAttendanceTime())){
+					attendanceCountByDateTime.put(atl.getAttendanceTime(), attendanceCountByDateTime.get(atl.getAttendanceTime())+1);
+				}else{
+					attendanceCountByDateTime.put(atl.getAttendanceTime(),1L);
+				}
+			}
+		}
+
+		for(LocalDateTime time: attendanceCountByDateTime.keySet()){
+			dataset.addValue(time.toEpochSecond(ZoneOffset.UTC),"Anwesende", attendanceCountByDateTime.get(time));
+		}
 
 		// Create the bar chart
 		JFreeChart attendanceTimeLineChart = ChartFactory.createLineChart(
