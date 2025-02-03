@@ -34,6 +34,7 @@ import org.sakaiproject.rollcall.tool.model.Attendant;
 public class CourseStatisticPage extends BasePage {
 
 	private static final long serialVersionUID = 1L;
+	private Course course;
 
 	public CourseStatisticPage() {
 		disableLink(this.statisticLink);
@@ -47,6 +48,8 @@ public class CourseStatisticPage extends BasePage {
 				return temp;
 			}
 		}));
+		LocalDateTime now = LocalDateTime.Now();
+		course = new Course(1,"Testvorlesung",now, now.minusHours(2));
 	}
 
 
@@ -73,23 +76,23 @@ public class CourseStatisticPage extends BasePage {
 
 	private byte[] setAttendanceTime(List<Attendant> attendantList) {
 		List<AttendanceTime> attendanceTimeList = Arrays.asList(
-				new AttendanceTime(1L, 1L, 1L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(5))),
-				new AttendanceTime(2L, 1L, 1L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(10))),
-				new AttendanceTime(3L, 1L, 1L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(15))),
-				new AttendanceTime(4L, 1L, 1L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(20))),
-				new AttendanceTime(5L, 1L, 1L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(25))),
-				new AttendanceTime(6L, 1L, 1L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(30))),
-				new AttendanceTime(7L, 1L, 1L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(35))),
-				new AttendanceTime(8L, 1L, 2L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(5))),
-				new AttendanceTime(9L, 1L, 2L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(10))),
-				new AttendanceTime(10L, 1L, 2L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(15))),
-				new AttendanceTime(11L, 1L, 2L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(20))),
-				new AttendanceTime(12l, 1L, 2L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(25))),
-				new AttendanceTime(15L, 1L, 3L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(5))),
-				new AttendanceTime(16L, 1L, 3L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(10))),
-				new AttendanceTime(17L, 1L, 3L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(15))),
-				new AttendanceTime(20L, 1L, 3L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(30))),
-				new AttendanceTime(21L, 1L, 3L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(35)))
+				new AttendanceTime(1L, course.getId(), 1L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(5))),
+				new AttendanceTime(2L, course.getId(), 1L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(10))),
+				new AttendanceTime(3L, course.getId(), 1L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(15))),
+				new AttendanceTime(4L, course.getId(), 1L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(20))),
+				new AttendanceTime(5L, course.getId(), 1L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(25))),
+				new AttendanceTime(6L, course.getId(), 1L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(30))),
+				new AttendanceTime(7L, course.getId(), 1L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(35))),
+				new AttendanceTime(8L, course.getId(), 2L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(5))),
+				new AttendanceTime(9L, course.getId(), 2L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(10))),
+				new AttendanceTime(10L, course.getId(), 2L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(15))),
+				new AttendanceTime(11L, course.getId(), 2L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(20))),
+				new AttendanceTime(12l, course.getId(), 2L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(25))),
+				new AttendanceTime(15L, course.getId(), 3L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(5))),
+				new AttendanceTime(16L, course.getId(), 3L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(10))),
+				new AttendanceTime(17L, course.getId(), 3L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(15))),
+				new AttendanceTime(20L, course.getId(), 3L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(30))),
+				new AttendanceTime(21L, course.getId(), 3L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(35)))
 		);
 
 		ListView<AttendanceTime> listViewAttendantTime = new ListView<>("attendanceTimeList", attendanceTimeList) {
@@ -103,13 +106,18 @@ public class CourseStatisticPage extends BasePage {
 		add(listViewAttendantTime);
 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		for (Attendant attendant : attendantList) {
-			for (AttendanceTime time : attendanceTimeList) {
-				if (time.getStudentId() == attendant.getId()) {
-					dataset.addValue(1, attendant.getFirstname(), time.getAttendanceTime());
-				}
-			}
-		}
+		Map<LocalDate, Long> attendanceCountByDateTime;
+		List<Long> studentNumbers = attendantList.stream().map(al -> al.getId());
+
+			attendanceCountByDateTime = attendanceTimeList.stream()
+					.filter(atl -> atl.getCourseId() == course.getId()
+							&& studentNumbers.contains(atl.getStudentId())
+							&& atl.getAttendanceTime().isAfter(course.getStart())
+							&& atl.getAttendanceTime().isAfter(course.getStart()))
+					.collect(Collectors.groupingBy(
+							atl -> atl.getAttendanceTime().getMinute(),
+							Collectors.counting()
+					)).foreach((date, count) -> dataset.addValue(date,"Anwesende",count));
 
 		// Create the bar chart
 		JFreeChart attendanceTimeLineChart = ChartFactory.createLineChart(
