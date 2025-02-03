@@ -4,4 +4,11 @@
 /impl/target*
 /tool/target*
 /pack/target*
-.idea/*
+
+# Ignore temporary IntelliJ files but keep essential project settings
+/.idea/*
+!.idea/misc.xml
+!.idea/modules.xml
+!.idea/vcs.xml
+!.idea/compiler.xml
+!.idea/libraries/
