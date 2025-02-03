@@ -41,6 +41,8 @@ public class CourseStatisticPage extends BasePage {
 	private Course course;
 
 	public CourseStatisticPage() {
+		LocalDateTime now = LocalDateTime.now();
+		course = new Course(1L,"Testvorlesung",now, now.minusHours(2));
 		disableLink(this.statisticLink);
 		List<Attendant> attendantList = setAttendee();
 		byte[] temp = setAttendanceTime(attendantList);
@@ -52,8 +54,6 @@ public class CourseStatisticPage extends BasePage {
 				return temp;
 			}
 		}));
-		LocalDateTime now = LocalDateTime.now();
-		course = new Course(1L,"Testvorlesung",now, now.minusHours(2));
 	}
 
 
