@@ -3,8 +3,11 @@ package org.sakaiproject.rollcall.logic;
 import lombok.Getter;
 import lombok.Setter;
 
+import net.sf.ehcache.Cache;
 import org.apache.log4j.Logger;
 import org.sakaiproject.db.api.SqlService;
+import org.sakaiproject.rollcall.dao.ProjectDao;
+import org.sakaiproject.rollcall.dao.RollcallDao;
 
 
 public class SqlServiceProxyImpl implements SqlServiceProxy {
@@ -12,6 +15,12 @@ public class SqlServiceProxyImpl implements SqlServiceProxy {
 
     @Setter
     private SqlService sqlService;
+
+    @Setter
+    private RollcallDao dao;
+
+    @Setter
+    private Cache cache;
 
     @Override
     public void executeQuery(String sql) {
