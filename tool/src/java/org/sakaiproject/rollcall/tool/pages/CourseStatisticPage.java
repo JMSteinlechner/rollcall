@@ -54,7 +54,7 @@ private List<Attendant> setAttendee() {
 	ListView<Attendant> listViewAttendant = new ListView<>("attendantList", attendantList) {
 		@Override
 		protected void populateItem(ListItem<Attendant> item) {
-			item.add(new Label("number", new PropertyModel<>(item.getModel(), "number")));
+			item.add(new Label("number", new PropertyModel<>(item.getModel(), "id")));
 			item.add(new Label("firstname", new PropertyModel<>(item.getModel(), "firstname")));
 			item.add(new Label("lastname", new PropertyModel<>(item.getModel(), "lastname")));
 		}
