@@ -58,8 +58,6 @@ public class BasePage extends WebPage {
 	protected SqlServiceProxy sqlServiceProxy;
 
 	Link<Void> firstLink;
-	Link<Void> secondLink;
-	Link<Void> thirdLink;
 	Link<Void> statisticLink;
 
 	public final FeedbackPanel feedbackPanel;
@@ -90,20 +88,6 @@ public class BasePage extends WebPage {
 		};
 		this.firstLink.add(new Label("screenreaderlabel", getString("link.screenreader.tabnotselected")));
 		nav.add(this.firstLink);
-
-		//second link
-		this.secondLink = new BookmarkablePageLink<Void>("secondLink", SecondPage.class){
-			private static final long serialVersionUID = 1L;
-		};
-		this.secondLink.add(new Label("screenreaderlabel", getString("link.screenreader.tabnotselected")));
-		nav.add(this.secondLink);
-
-		//third link
-		this.thirdLink = new BookmarkablePageLink<Void>("thirdLink", ThirdPage.class){
-			private static final long serialVersionUID = 1L;
-		};
-		this.thirdLink.add(new Label("screenreaderlabel", getString("link.screenreader.tabnotselected")));
-		nav.add(this.thirdLink);
 
 		//statistic link
 		this.statisticLink = new BookmarkablePageLink<Void>("statisticLink", CourseStatisticPage.class){
