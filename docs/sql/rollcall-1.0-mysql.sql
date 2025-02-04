@@ -8,7 +8,7 @@ create table example_table
 );
 
 -- Tabelle attendants erstellen
-CREATE TABLE attendants
+CREATE TABLE IF NOT EXISTS attendants
 (
     id        BIGINT AUTO_INCREMENT PRIMARY KEY,
     firstname VARCHAR(100),
@@ -16,7 +16,7 @@ CREATE TABLE attendants
 );
 
 -- Tabelle attendance erstellen
-CREATE TABLE attendance
+CREATE TABLE IF NOT EXISTS attendance
 (
     id              BIGINT AUTO_INCREMENT PRIMARY KEY,
     student_id      BIGINT    NOT NULL,
