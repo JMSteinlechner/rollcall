@@ -58,6 +58,17 @@ public class RollcallDaoImpl extends JdbcDaoSupport implements RollcallDao {
 			getJdbcTemplate().execute(getStatement("create.attendance_table"));
 		} catch (DataAccessException ex) {
 			log.info("Error creating tables: " + ex.getClass() + ":" + ex.getMessage());
+		}
+	}
+
+	private void initStatements() {
+		log.info("initStatements() in RollcallDaoImpl");
+		try {
+			getJdbcTemplate().execute(getStatement("insert.attendant_test_data"));
+			getJdbcTemplate().execute(getStatement("insert.attendance_test_data"));
+		}
+		catch (DataAccessException ex) {
+			log.info("Error creating tables: " + ex.getClass() + ":" + ex.getMessage());
 			return;
 		}
 	}
