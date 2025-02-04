@@ -44,6 +44,7 @@ public class RollcallDaoImpl extends JdbcDaoSupport implements RollcallDao {
 		boolean autoddl = ServerConfigurationService.getInstance().getBoolean("auto.ddl", true);
 		if(autoddl) {
 			initTables();
+			initSQLStatements();
 		}
 	}
 
@@ -61,8 +62,8 @@ public class RollcallDaoImpl extends JdbcDaoSupport implements RollcallDao {
 		}
 	}
 
-	private void initStatements() {
-		log.info("initStatements() in RollcallDaoImpl");
+	private void initSQLStatements() {
+		log.info("initSQLStatements() in RollcallDaoImpl");
 		try {
 			getJdbcTemplate().execute(getStatement("insert.attendant_test_data"));
 			getJdbcTemplate().execute(getStatement("insert.attendance_test_data"));
