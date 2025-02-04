@@ -4,66 +4,80 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.model.Model; // For Model.of() in Wicket
-
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneOffset;
-import java.util.*;
-import java.util.stream.Collectors;
-
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.resource.DynamicImageResource;
-import org.apache.wicket.util.file.File;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.category.DefaultIntervalCategoryDataset;
-import org.jfree.data.general.DefaultValueDataset;
 import org.sakaiproject.rollcall.tool.model.AttendanceTime;
 import org.sakaiproject.rollcall.tool.model.Attendant;
-import org.sakaiproject.rollcall.tool.model.Course;
 
+import java.awt.image.BufferedImage;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-/**
- * An example page
- *
- * @author Steve Swinsburg (steve.swinsburg@anu.edu.au)
- *
- */
 public class CourseStatisticPage extends BasePage {
 
 	private static final long serialVersionUID = 1L;
-	private Course course;
+
 
 	public CourseStatisticPage() {
-		LocalDateTime now = LocalDateTime.now();
-		course = new Course(1L,"Testvorlesung",now, now.minusHours(2));
 		disableLink(this.statisticLink);
-		List<Attendant> attendantList = setAttendee();
-		byte[] temp = setAttendanceTime(attendantList);
+
+		List<Attendant> attendantList = loadAttendantsFromDB();
+		List<AttendanceTime> attendanceTimeList = loadAttendanceTimesFromDB();
+		byte[] temp = createAttendanceChart(attendantList, attendanceTimeList);
+
+		setupAttendantTable(attendantList);
+		setupAttendanceTimeTable(attendanceTimeList);
 
 		add(new Image("attendanceTimeChartImage", new DynamicImageResource() {
-
 			@Override
 			protected byte[] getImageData(Attributes attributes) {
 				return temp;
 			}
 		}));
+
+		createAttendanceChart(attendantList, attendanceTimeList);
 	}
 
+	private List<Attendant> loadAttendantsFromDB() {
+		String sql = "SELECT id, firstname, lastname FROM attendants";
+		return sqlServiceProxy.fetchMultipleResults(sql, new Object[]{}, resultSet -> {
+			try {
+				return new Attendant(
+						resultSet.getLong("id"),
+						resultSet.getString("firstname"),
+						resultSet.getString("lastname")
+				);
+			} catch (SQLException e) {
+				return null;
+			}
+		});
+	}
 
-	private List<Attendant> setAttendee() {
-		List<Attendant> attendantList = Arrays.asList(
-				new Attendant(1L, "Lisa", "Tester"),
-				new Attendant(2L, "Markus", "Muster"),
-				new Attendant(3L, "Jakob", "Maier")
-		);
+	private List<AttendanceTime> loadAttendanceTimesFromDB() {
+		String sql = "SELECT id, student_id, course_id, attendance_time FROM attendance";
+		return sqlServiceProxy.fetchMultipleResults(sql, new Object[]{}, resultSet -> {
+			try {
+				return new AttendanceTime(
+						resultSet.getLong("id"),
+						resultSet.getLong("student_id"),
+						resultSet.getLong("course_id"),
+						resultSet.getTimestamp("attendance_time").toLocalDateTime()
+				);
+			} catch (SQLException e) {
+				return null;
+			}
+		});
+	}
 
+	private void setupAttendantTable(List<Attendant> attendantList) {
 		ListView<Attendant> listViewAttendant = new ListView<>("attendantList", attendantList) {
 			@Override
 			protected void populateItem(ListItem<Attendant> item) {
@@ -72,43 +86,21 @@ public class CourseStatisticPage extends BasePage {
 				item.add(new Label("lastname", new PropertyModel<>(item.getModel(), "lastname")));
 			}
 		};
-
 		add(listViewAttendant);
-
-		return attendantList;
 	}
 
-	private byte[] setAttendanceTime(List<Attendant> attendantList) {
-		List<AttendanceTime> attendanceTimeList = Arrays.asList(
-				new AttendanceTime(1L, course.getId(), 1L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(5))),
-				new AttendanceTime(2L, course.getId(), 1L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(10))),
-				new AttendanceTime(3L, course.getId(), 1L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(15))),
-				new AttendanceTime(4L, course.getId(), 1L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(20))),
-				new AttendanceTime(5L, course.getId(), 1L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(25))),
-				new AttendanceTime(6L, course.getId(), 1L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(30))),
-				new AttendanceTime(7L, course.getId(), 1L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(35))),
-				new AttendanceTime(8L, course.getId(), 2L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(5))),
-				new AttendanceTime(9L, course.getId(), 2L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(10))),
-				new AttendanceTime(10L, course.getId(), 2L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(15))),
-				new AttendanceTime(11L, course.getId(), 2L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(20))),
-				new AttendanceTime(12l, course.getId(), 2L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(25))),
-				new AttendanceTime(15L, course.getId(), 3L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(5))),
-				new AttendanceTime(16L, course.getId(), 3L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(10))),
-				new AttendanceTime(17L, course.getId(), 3L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(15))),
-				new AttendanceTime(20L, course.getId(), 3L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(30))),
-				new AttendanceTime(21L, course.getId(), 3L, LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(35)))
-		);
-
-		ListView<AttendanceTime> listViewAttendantTime = new ListView<>("attendanceTimeList", attendanceTimeList) {
+	private void setupAttendanceTimeTable(List<AttendanceTime> attendanceTimeList) {
+		ListView<AttendanceTime> listViewAttendanceTime = new ListView<>("attendanceTimeList", attendanceTimeList) {
 			@Override
 			protected void populateItem(ListItem<AttendanceTime> item) {
 				item.add(new Label("studentId", new PropertyModel<>(item.getModel(), "studentId")));
 				item.add(new Label("attendanceTime", new PropertyModel<>(item.getModel(), "attendanceTime")));
 			}
 		};
+		add(listViewAttendanceTime);
+	}
 
-		add(listViewAttendantTime);
-
+	private byte[] createAttendanceChart(List<Attendant> attendantList, List<AttendanceTime> attendanceTimeList) {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
 		List<Long> studentNumbers = new ArrayList<Long>();
@@ -120,10 +112,8 @@ public class CourseStatisticPage extends BasePage {
 
 		Map<LocalDateTime, Long> attendanceCountByDateTime = new HashMap<>();
 		for(AttendanceTime atl: attendanceTimeList){
-			if(atl.getCourseId() == course.getId()
-					&& studentNumbers.contains(atl.getStudentId())
-					&& atl.getAttendanceTime().isAfter(course.getStart())
-					&& atl.getAttendanceTime().isBefore(course.getEnd())){
+			if(atl.getCourseId() == attendanceTimeList.get(0).getCourseId()
+					&& studentNumbers.contains(atl.getStudentId())) {
 				if(attendanceCountByDateTime.containsKey(atl.getAttendanceTime())){
 					attendanceCountByDateTime.put(atl.getAttendanceTime(), attendanceCountByDateTime.get(atl.getAttendanceTime())+1);
 				}else{
