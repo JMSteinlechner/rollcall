@@ -49,7 +49,7 @@ public class FirstPage extends BasePage {
 
 		String meetingId = "None";
 		int numMeetingInfo = 0;
-		String numMeetingInfoString = "None";
+		String attendeeInfoString = "None";
 		if (numMeetings != 0) {
 
 			meetingId = meetings.get(0).getId();
@@ -58,12 +58,12 @@ public class FirstPage extends BasePage {
 		Map<String, Object> meetingInfo = bbbMeetingProxy.getMeetingInfo(meetingId);
 		numMeetingInfo = meetingInfo.size();
 		if (numMeetingInfo != 0) {
-			numMeetingInfoString = meetingInfo.toString();
+			attendeeInfoString = meetingInfo.get("attendees").toString();
 		}
 
 		add(new Label("meetingId", meetingId));
 		add(new Label("numMeetingInfo", String.valueOf(numMeetingInfo)));
-		add(new Label("meetingInfo", numMeetingInfoString));
+		add(new Label("attendeeInfo", attendeeInfoString));
 
 		// Formular für das Speichern in der Datenbank
 		Form<Void> saveForm = new Form<Void>("saveForm") {
