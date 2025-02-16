@@ -12,7 +12,32 @@ Many of the fixes integrated into Rollcall were derived from the [**community-co
 
 ## Complete Working Example  
 
-For a fully functional example of **Rollcall** integrated with **bbb-tool** and **Sakai**, refer to the [**IGP repository**](https://github.com/JMSteinlechner/IGP).  
+For a fully functional example of **Rollcall** integrated with **bbb-tool** and **Sakai**, refer to the [**IGP repository**](https://github.com/JMSteinlechner/IGP).
+
+### Mock data
+As of now, the **API and database implementation are not yet fully linked**, requiring the use of **mock data** to demonstrate the current state of attendance data display.  
+
+Since this mock data is **not included in the build**, it must be manually inserted into the database if needed.  
+
+To manually insert example data into the database, use the following SQL statements:  
+
+```sql
+-- Insert sample data for attendants
+INSERT INTO attendants (id, firstname, lastname)
+VALUES (1, 'Lisa', 'Tester'),
+       (2, 'Markus', 'Muster'),
+       (3, 'Jakob', 'Maier'),
+       (4, 'Jeff', 'Rest');
+
+-- Insert sample data for attendance records
+INSERT INTO attendance (student_id, course_id, attendance_time, status)
+VALUES (1, 101, '2025-02-01 08:30:00', 'present'),
+       (2, 101, '2025-02-01 08:35:00', 'late'),
+       (3, 101, '2025-02-01 08:40:00', 'present'),
+       (1, 102, '2025-02-02 10:00:00', 'present'),
+       (2, 102, '2025-02-02 10:10:00', 'present'),
+       (3, 102, '2025-02-02 10:15:00', 'absent');
+```
 
 # Interesting stuff we found out..
 
