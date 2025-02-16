@@ -10,6 +10,9 @@ During the upgrade of Wicket libraries in Rollcall, updating the [**sakai-wicket
 
 Many of the fixes integrated into Rollcall were derived from the [**community-contributed Attendance Tool**](https://github.com/sakaicontrib/attendance) or the **native Gradebook module** in Sakai, both of which are also based on Wicket.
 
+## Complete Working Example  
+
+For a fully functional example of **Rollcall** integrated with **bbb-tool** and **Sakai**, refer to the [**IGP repository**](https://github.com/JMSteinlechner/IGP).  
 
 # Interesting stuff we found out..
 
