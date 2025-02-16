@@ -19,7 +19,7 @@ As of now, the **API and database implementation are not yet fully linked**, req
 
 Since this mock data is **not included in the build**, it must be manually inserted into the database if needed.  
 
-To manually insert example data into the database, use the following SQL statements:
+To manually insert example data into the database, use the following SQL statements after mariadb and sakai are running in docker:
 
 (Default authentication for Database is username:sakai password:ironchef)
 
