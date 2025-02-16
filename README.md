@@ -1,12 +1,15 @@
 # Rollcall Sakai Tool
 
-This project is built upon the **sakai-wicket-maven-archetype**, one of several tool-generation options listed in the Sakai documentation for creating a new tool base application. Among the available options, it appeared to be the least deprecated based on the modification dates.  
+**Rollcall** is a custom Sakai tool designed to **automate attendance tracking** for **BigBlueButton (BBB) meetings** within a Sakai instance. It retrieves meeting data by querying the **bbb-tool API**, ensuring seamless and accurate attendance recording without manual input.  
 
-However, since the original **sakai-wicket-maven-archetype** repository is outdated, we created a **fork** incorporating all necessary fixes implemented in our custom **Rollcall Tool** to ensure functionality.  
+This project is built upon the [**sakai-wicket-maven-archetype**](https://github.com/JMSteinlechner/sakai-wicket-maven-archetype), one of several tool-generation options listed in the Sakai documentation for creating a new tool base application. Among the available options, it appeared to be the least deprecated based on the modification dates.  
 
-During the upgrade of Wicket libraries in Rollcall, updating the **sakai-wicket-maven-archetype** was ultimately abandoned, as maintaining both simultaneously proved too time-consuming. As a result, **Rollcall now serves as a more reliable base application** than a project generated using the **sakai-wicket-maven-archetype fork**.  
+However, since the original **sakai-wicket-maven-archetype** repository is outdated, we created a [**fork**](https://github.com/JMSteinlechner/sakai-wicket-maven-archetype) incorporating all necessary fixes implemented in our custom **Rollcall Tool** to ensure functionality.  
 
-Many of the fixes integrated into Rollcall were derived from the **community-contributed Attendance Tool** or the **native Gradebook module** in Sakai, both of which are also based on Wicket.  
+During the upgrade of Wicket libraries in Rollcall, updating the [**sakai-wicket-maven-archetype**](https://github.com/JMSteinlechner/sakai-wicket-maven-archetype) was ultimately abandoned, as maintaining both simultaneously proved too time-consuming. As a result, **Rollcall now serves as a more reliable base application** than a project generated using the [**sakai-wicket-maven-archetype fork**](https://github.com/JMSteinlechner/sakai-wicket-maven-archetype).  
+
+Many of the fixes integrated into Rollcall were derived from the [**community-contributed Attendance Tool**](https://github.com/sakaicontrib/attendance) or the **native Gradebook module** in Sakai, both of which are also based on Wicket.
+
 
 # Interesting stuff we found out..
 
